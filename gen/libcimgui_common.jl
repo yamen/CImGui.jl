@@ -1,51 +1,86 @@
 # Automatically generated using Clang.jl
 
 
-# Skipping MacroDefinition: API __attribute__ ( ( __visibility__ ( "default" ) ) )
-const ImGuiLayoutType = Cint
-const ImGuiItemFlags = Cint
+# Skipping MacroDefinition: API __declspec ( dllexport )
 
+const IMGUI_HAS_DOCK = 1
 const ImGuiID = UInt32
-
-struct ImGuiStoragePair
-    key::ImGuiID
-end
-
-struct ImGuiTextRange
-    b::Cstring
-    e::Cstring
-end
-const CIMGUI_INCLUDED = nothing
-
-struct ImGuiPtrOrIndex
-    Ptr::Ptr{Cvoid}
-    Index::Cint
-end
-
-struct ImGuiShrinkWidthItem
-    Index::Cint
-    Width::Cfloat
-end
-
+const ImS8 = UInt8
+const ImGuiTableColumnIdx = ImS8
 const ImU8 = Cuchar
 
-struct ImGuiDataTypeTempStorage
-    Data::NTuple{8, ImU8}
+struct ImGuiTableColumnSettings
+    WidthOrWeight::Cfloat
+    UserID::ImGuiID
+    Index::ImGuiTableColumnIdx
+    DisplayOrder::ImGuiTableColumnIdx
+    SortOrder::ImGuiTableColumnIdx
+    SortDirection::ImU8
+    IsEnabled::ImU8
+    IsStretch::ImU8
 end
 
-struct ImVec2ih
-    x::Cshort
-    y::Cshort
+const ImU32 = UInt32
+
+struct ImGuiTableCellData
+    BgColor::ImU32
+    Column::ImGuiTableColumnIdx
 end
 
-struct ImVec1
-    x::Cfloat
-end
+const ImGuiViewportFlags = Cint
 
 struct ImVec2
     x::Cfloat
     y::Cfloat
 end
+
+struct ImVec4
+    x::Cfloat
+    y::Cfloat
+    z::Cfloat
+    w::Cfloat
+end
+
+const ImTextureID = Ptr{Cvoid}
+const ImDrawCallback = Ptr{Cvoid}
+
+struct ImDrawCmd
+    ClipRect::ImVec4
+    TextureId::ImTextureID
+    VtxOffset::UInt32
+    IdxOffset::UInt32
+    ElemCount::UInt32
+    UserCallback::ImDrawCallback
+    UserCallbackData::Ptr{Cvoid}
+end
+
+struct ImVector_ImDrawCmd
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImDrawCmd}
+end
+
+const ImDrawIdx = UInt16
+
+struct ImVector_ImDrawIdx
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImDrawIdx}
+end
+
+struct ImDrawVert
+    pos::ImVec2
+    uv::ImVec2
+    col::ImU32
+end
+
+struct ImVector_ImDrawVert
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImDrawVert}
+end
+
+const ImDrawListFlags = Cint
 
 struct ImVector_float
     Size::Cint
@@ -53,7 +88,7 @@ struct ImVector_float
     Data::Ptr{Cfloat}
 end
 
-const ImWchar16 = Cushort
+const ImWchar16 = UInt16
 const ImWchar = ImWchar16
 
 struct ImVector_ImWchar
@@ -63,8 +98,9 @@ struct ImVector_ImWchar
 end
 
 struct ImFontGlyph
-    Codepoint::UInt32
+    Colored::UInt32
     Visible::UInt32
+    Codepoint::UInt32
     AdvanceX::Cfloat
     X0::Cfloat
     Y0::Cfloat
@@ -83,18 +119,28 @@ struct ImVector_ImFontGlyph
 end
 
 const ImFontAtlasFlags = Cint
-const ImTextureID = Ptr{Cvoid}
 
 struct ImVector_ImFontPtr
     Size::Cint
     Capacity::Cint
-    Data::Ptr{Ptr{Cvoid}}  # Ptr{Ptr{ImFont}}
+    Data::Ptr{Ptr{Cvoid}}
+end
+
+struct ImFontAtlasCustomRect
+    Width::UInt16
+    Height::UInt16
+    X::UInt16
+    Y::UInt16
+    GlyphID::UInt32
+    GlyphAdvanceX::Cfloat
+    GlyphOffset::ImVec2
+    Font::Ptr{Cvoid}
 end
 
 struct ImVector_ImFontAtlasCustomRect
     Size::Cint
     Capacity::Cint
-    Data::Ptr{Cvoid}  # Ptr{ImFontAtlasCustomRect}
+    Data::Ptr{Cvoid}
 end
 
 struct ImFontConfig
@@ -112,11 +158,11 @@ struct ImFontConfig
     GlyphMinAdvanceX::Cfloat
     GlyphMaxAdvanceX::Cfloat
     MergeMode::Bool
-    RasterizerFlags::UInt32
+    FontBuilderFlags::UInt32
     RasterizerMultiply::Cfloat
     EllipsisChar::ImWchar
-    Name::NTuple{40, UInt8}
-    DstFont::Ptr{Cvoid}  # Ptr{ImFont}
+    Name::NTuple{40,UInt8}
+    DstFont::Ptr{Cvoid}
 end
 
 struct ImVector_ImFontConfig
@@ -125,11 +171,8 @@ struct ImVector_ImFontConfig
     Data::Ptr{ImFontConfig}
 end
 
-struct ImVec4
-    x::Cfloat
-    y::Cfloat
-    z::Cfloat
-    w::Cfloat
+struct ImFontBuilderIO
+    FontBuilder_Build::Ptr{Cvoid}
 end
 
 struct ImFontAtlas
@@ -147,7 +190,9 @@ struct ImFontAtlas
     Fonts::ImVector_ImFontPtr
     CustomRects::ImVector_ImFontAtlasCustomRect
     ConfigData::ImVector_ImFontConfig
-    TexUvLines::NTuple{64, ImVec4}
+    TexUvLines::NTuple{64,ImVec4}
+    FontBuilderIO::Ptr{ImFontBuilderIO}
+    FontBuilderFlags::UInt32
     PackIdMouseCursors::Cint
     PackIdLines::Cint
 end
@@ -169,169 +214,8 @@ struct ImFont
     Ascent::Cfloat
     Descent::Cfloat
     MetricsTotalSurface::Cint
-    Used4kPagesMap::NTuple{2, ImU8}
+    Used4kPagesMap::NTuple{2,ImU8}
 end
-
-struct ImFontAtlasCustomRect
-    Width::UInt16
-    Height::UInt16
-    X::UInt16
-    Y::UInt16
-    GlyphID::UInt32
-    GlyphAdvanceX::Cfloat
-    GlyphOffset::ImVec2
-    Font::Ptr{ImFont}
-end
-
-struct ImGuiWindowSettings
-    ID::ImGuiID
-    Pos::ImVec2ih
-    Size::ImVec2ih
-    Collapsed::Bool
-    WantApply::Bool
-end
-
-const ImGuiItemStatusFlags = Cint
-
-struct ImRect
-    Min::ImVec2
-    Max::ImVec2
-end
-
-@cenum ImGuiNavLayer::UInt32 begin
-    ImGuiNavLayer_Main = 0
-    ImGuiNavLayer_Menu = 1
-    ImGuiNavLayer_COUNT = 2
-end
-
-
-struct ImGuiMenuColumns
-    Spacing::Cfloat
-    Width::Cfloat
-    NextWidth::Cfloat
-    Pos::NTuple{3, Cfloat}
-    NextWidths::NTuple{3, Cfloat}
-end
-
-const ImU32 = Cuint
-const ImGuiWindowFlags = Cint
-const ImS8 = Int8
-const ImGuiDir = Cint
-const ImGuiCond = Cint
-
-struct ImVector_ImGuiID
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImGuiID}
-end
-
-struct ImVector_ImGuiStoragePair
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImGuiStoragePair}
-end
-
-struct ImGuiStorage
-    Data::ImVector_ImGuiStoragePair
-end
-
-const ImGuiColumnsFlags = Cint
-
-struct ImGuiColumnData
-    OffsetNorm::Cfloat
-    OffsetNormBeforeResize::Cfloat
-    Flags::ImGuiColumnsFlags
-    ClipRect::ImRect
-end
-
-struct ImVector_ImGuiColumnData
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImGuiColumnData}
-end
-
-const ImDrawCallback = Ptr{Cvoid}
-
-struct ImDrawCmd
-    ClipRect::ImVec4
-    TextureId::ImTextureID
-    VtxOffset::Cuint
-    IdxOffset::Cuint
-    ElemCount::Cuint
-    UserCallback::ImDrawCallback
-    UserCallbackData::Ptr{Cvoid}
-end
-
-struct ImVector_ImDrawCmd
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImDrawCmd}
-end
-
-const ImDrawIdx = Cushort
-
-struct ImVector_ImDrawIdx
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImDrawIdx}
-end
-
-struct ImDrawChannel
-    _CmdBuffer::ImVector_ImDrawCmd
-    _IdxBuffer::ImVector_ImDrawIdx
-end
-
-struct ImVector_ImDrawChannel
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImDrawChannel}
-end
-
-struct ImDrawListSplitter
-    _Current::Cint
-    _Count::Cint
-    _Channels::ImVector_ImDrawChannel
-end
-
-struct ImGuiColumns
-    ID::ImGuiID
-    Flags::ImGuiColumnsFlags
-    IsFirstFrame::Bool
-    IsBeingResized::Bool
-    Current::Cint
-    Count::Cint
-    OffMinX::Cfloat
-    OffMaxX::Cfloat
-    LineMinY::Cfloat
-    LineMaxY::Cfloat
-    HostCursorPosY::Cfloat
-    HostCursorMaxPosX::Cfloat
-    HostInitialClipRect::ImRect
-    HostBackupClipRect::ImRect
-    HostBackupParentWorkRect::ImRect
-    Columns::ImVector_ImGuiColumnData
-    Splitter::ImDrawListSplitter
-end
-
-struct ImVector_ImGuiColumns
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImGuiColumns}
-end
-
-struct ImDrawVert
-    pos::ImVec2
-    uv::ImVec2
-    col::ImU32
-end
-
-struct ImVector_ImDrawVert
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImDrawVert}
-end
-
-const ImDrawListFlags = Cint
 
 struct ImDrawListSharedData
     TexUvWhitePixel::ImVec2
@@ -341,8 +225,8 @@ struct ImDrawListSharedData
     CircleSegmentMaxError::Cfloat
     ClipRectFullscreen::ImVec4
     InitialFlags::ImDrawListFlags
-    ArcFastVtx::NTuple{12, ImVec2}
-    CircleSegmentCounts::NTuple{64, ImU8}
+    ArcFastVtx::NTuple{12,ImVec2}
+    CircleSegmentCounts::NTuple{64,ImU8}
     TexUvLines::Ptr{ImVec4}
 end
 
@@ -364,54 +248,195 @@ struct ImVector_ImVec2
     Data::Ptr{ImVec2}
 end
 
+struct ImDrawCmdHeader
+    ClipRect::ImVec4
+    TextureId::ImTextureID
+    VtxOffset::UInt32
+end
+
+struct ImDrawChannel
+    _CmdBuffer::ImVector_ImDrawCmd
+    _IdxBuffer::ImVector_ImDrawIdx
+end
+
+struct ImVector_ImDrawChannel
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImDrawChannel}
+end
+
+struct ImDrawListSplitter
+    _Current::Cint
+    _Count::Cint
+    _Channels::ImVector_ImDrawChannel
+end
+
 struct ImDrawList
     CmdBuffer::ImVector_ImDrawCmd
     IdxBuffer::ImVector_ImDrawIdx
     VtxBuffer::ImVector_ImDrawVert
     Flags::ImDrawListFlags
+    _VtxCurrentIdx::UInt32
     _Data::Ptr{ImDrawListSharedData}
     _OwnerName::Cstring
-    _VtxCurrentIdx::Cuint
     _VtxWritePtr::Ptr{ImDrawVert}
     _IdxWritePtr::Ptr{ImDrawIdx}
     _ClipRectStack::ImVector_ImVec4
     _TextureIdStack::ImVector_ImTextureID
     _Path::ImVector_ImVec2
-    _CmdHeader::ImDrawCmd
+    _CmdHeader::ImDrawCmdHeader
     _Splitter::ImDrawListSplitter
+    _FringeScale::Cfloat
 end
 
-const ImGuiLayoutType = Cint
-const ImGuiItemFlags = Cint
+struct ImDrawData
+    Valid::Bool
+    CmdListsCount::Cint
+    TotalIdxCount::Cint
+    TotalVtxCount::Cint
+    CmdLists::Ptr{Ptr{ImDrawList}}
+    DisplayPos::ImVec2
+    DisplaySize::ImVec2
+    FramebufferScale::ImVec2
+    OwnerViewport::Ptr{Cvoid}
+end
 
-struct ImVector_ImGuiItemFlags
+struct ImGuiViewport
+    ID::ImGuiID
+    Flags::ImGuiViewportFlags
+    Pos::ImVec2
+    Size::ImVec2
+    WorkPos::ImVec2
+    WorkSize::ImVec2
+    DpiScale::Cfloat
+    ParentViewportId::ImGuiID
+    DrawData::Ptr{ImDrawData}
+    RendererUserData::Ptr{Cvoid}
+    PlatformUserData::Ptr{Cvoid}
+    PlatformHandle::Ptr{Cvoid}
+    PlatformHandleRaw::Ptr{Cvoid}
+    PlatformRequestMove::Bool
+    PlatformRequestResize::Bool
+    PlatformRequestClose::Bool
+end
+
+const ImGuiWindowFlags = Cint
+const ImGuiTabItemFlags = Cint
+const ImGuiDockNodeFlags = Cint
+
+struct ImGuiWindowClass
+    ClassId::ImGuiID
+    ParentViewportId::ImGuiID
+    ViewportFlagsOverrideSet::ImGuiViewportFlags
+    ViewportFlagsOverrideClear::ImGuiViewportFlags
+    TabItemFlagsOverrideSet::ImGuiTabItemFlags
+    DockNodeFlagsOverrideSet::ImGuiDockNodeFlags
+    DockNodeFlagsOverrideClear::ImGuiDockNodeFlags
+    DockingAlwaysTabBar::Bool
+    DockingAllowUnclassed::Bool
+end
+
+const ImGuiDir = Cint
+const ImGuiCond = Cint
+
+struct ImVector_ImGuiID
     Size::Cint
     Capacity::Cint
-    Data::Ptr{ImGuiItemFlags}
+    Data::Ptr{ImGuiID}
 end
 
-struct ImGuiGroupData
-    BackupCursorPos::ImVec2
-    BackupCursorMaxPos::ImVec2
-    BackupIndent::ImVec1
-    BackupGroupOffset::ImVec1
-    BackupCurrLineSize::ImVec2
-    BackupCurrLineTextBaseOffset::Cfloat
-    BackupActiveIdIsAlive::ImGuiID
-    BackupActiveIdPreviousFrameIsAlive::Bool
-    EmitItem::Bool
+struct ImVec1
+    x::Cfloat
 end
 
-struct ImVector_ImGuiGroupData
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImGuiGroupData}
+const ImGuiItemStatusFlags = Cint
+
+struct ImRect
+    Min::ImVec2
+    Max::ImVec2
+end
+
+@cenum ImGuiNavLayer::UInt32 begin
+    ImGuiNavLayer_Main = 0
+    ImGuiNavLayer_Menu = 1
+    ImGuiNavLayer_COUNT = 2
+end
+
+
+struct ImGuiMenuColumns
+    Spacing::Cfloat
+    Width::Cfloat
+    NextWidth::Cfloat
+    Pos::NTuple{3,Cfloat}
+    NextWidths::NTuple{3,Cfloat}
 end
 
 struct ImVector_ImGuiWindowPtr
     Size::Cint
     Capacity::Cint
-    Data::Ptr{Ptr{Cvoid}}  # Ptr{Ptr{ImGuiWindow}}
+    Data::Ptr{Ptr{Cvoid}}
+end
+
+struct ImGuiStoragePair
+    key::ImGuiID
+end
+
+struct ImVector_ImGuiStoragePair
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiStoragePair}
+end
+
+struct ImGuiStorage
+    Data::ImVector_ImGuiStoragePair
+end
+
+const ImGuiOldColumnFlags = Cint
+
+struct ImGuiOldColumnData
+    OffsetNorm::Cfloat
+    OffsetNormBeforeResize::Cfloat
+    Flags::ImGuiOldColumnFlags
+    ClipRect::ImRect
+end
+
+struct ImVector_ImGuiOldColumnData
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiOldColumnData}
+end
+
+struct ImGuiOldColumns
+    ID::ImGuiID
+    Flags::ImGuiOldColumnFlags
+    IsFirstFrame::Bool
+    IsBeingResized::Bool
+    Current::Cint
+    Count::Cint
+    OffMinX::Cfloat
+    OffMaxX::Cfloat
+    LineMinY::Cfloat
+    LineMaxY::Cfloat
+    HostCursorPosY::Cfloat
+    HostCursorMaxPosX::Cfloat
+    HostInitialClipRect::ImRect
+    HostBackupClipRect::ImRect
+    HostBackupParentWorkRect::ImRect
+    Columns::ImVector_ImGuiOldColumnData
+    Splitter::ImDrawListSplitter
+end
+
+const ImGuiLayoutType = Cint
+const ImGuiItemFlags = Cint
+
+struct ImGuiStackSizes
+    SizeOfIDStack::Int16
+    SizeOfColorStack::Int16
+    SizeOfStyleVarStack::Int16
+    SizeOfFontStack::Int16
+    SizeOfFocusScopeStack::Int16
+    SizeOfGroupStack::Int16
+    SizeOfBeginPopupStack::Int16
 end
 
 struct ImGuiWindowTempData
@@ -419,6 +444,7 @@ struct ImGuiWindowTempData
     CursorPosPrevLine::ImVec2
     CursorStartPos::ImVec2
     CursorMaxPos::ImVec2
+    IdealMaxPos::ImVec2
     CurrLineSize::ImVec2
     PrevLineSize::ImVec2
     CurrLineTextBaseOffset::Cfloat
@@ -443,7 +469,8 @@ struct ImGuiWindowTempData
     TreeJumpToParentOnPopMask::ImU32
     ChildWindows::ImVector_ImGuiWindowPtr
     StateStorage::Ptr{ImGuiStorage}
-    CurrentColumns::Ptr{ImGuiColumns}
+    CurrentColumns::Ptr{ImGuiOldColumns}
+    CurrentTableIdx::Cint
     LayoutType::ImGuiLayoutType
     ParentLayoutType::ImGuiLayoutType
     FocusCounterRegular::Cint
@@ -451,109 +478,48 @@ struct ImGuiWindowTempData
     ItemFlags::ImGuiItemFlags
     ItemWidth::Cfloat
     TextWrapPos::Cfloat
-    ItemFlagsStack::ImVector_ImGuiItemFlags
     ItemWidthStack::ImVector_float
     TextWrapPosStack::ImVector_float
-    GroupStack::ImVector_ImGuiGroupData
-    StackSizesBackup::NTuple{6, Int16}
+    StackSizesOnBegin::ImGuiStackSizes
 end
 
-struct ImGuiWindow
-    Name::Cstring
-    ID::ImGuiID
-    Flags::ImGuiWindowFlags
-    Pos::ImVec2
-    Size::ImVec2
-    SizeFull::ImVec2
-    ContentSize::ImVec2
-    ContentSizeExplicit::ImVec2
-    WindowPadding::ImVec2
-    WindowRounding::Cfloat
-    WindowBorderSize::Cfloat
-    NameBufLen::Cint
-    MoveId::ImGuiID
-    ChildId::ImGuiID
-    Scroll::ImVec2
-    ScrollMax::ImVec2
-    ScrollTarget::ImVec2
-    ScrollTargetCenterRatio::ImVec2
-    ScrollTargetEdgeSnapDist::ImVec2
-    ScrollbarSizes::ImVec2
-    ScrollbarX::Bool
-    ScrollbarY::Bool
-    Active::Bool
-    WasActive::Bool
-    WriteAccessed::Bool
-    Collapsed::Bool
-    WantCollapseToggle::Bool
-    SkipItems::Bool
-    Appearing::Bool
-    Hidden::Bool
-    IsFallbackWindow::Bool
-    HasCloseButton::Bool
-    ResizeBorderHeld::Int8
-    BeginCount::Cshort
-    BeginOrderWithinParent::Cshort
-    BeginOrderWithinContext::Cshort
-    PopupId::ImGuiID
-    AutoFitFramesX::ImS8
-    AutoFitFramesY::ImS8
-    AutoFitChildAxises::ImS8
-    AutoFitOnlyGrows::Bool
-    AutoPosLastDirection::ImGuiDir
-    HiddenFramesCanSkipItems::Cint
-    HiddenFramesCannotSkipItems::Cint
-    SetWindowPosAllowFlags::ImGuiCond
-    SetWindowSizeAllowFlags::ImGuiCond
-    SetWindowCollapsedAllowFlags::ImGuiCond
-    SetWindowPosVal::ImVec2
-    SetWindowPosPivot::ImVec2
-    IDStack::ImVector_ImGuiID
-    DC::ImGuiWindowTempData
-    OuterRectClipped::ImRect
-    InnerRect::ImRect
-    InnerClipRect::ImRect
-    WorkRect::ImRect
-    ParentWorkRect::ImRect
-    ClipRect::ImRect
-    ContentRegionRect::ImRect
-    HitTestHoleSize::ImVec2ih
-    HitTestHoleOffset::ImVec2ih
-    LastFrameActive::Cint
-    LastTimeActive::Cfloat
-    ItemWidthDefault::Cfloat
-    StateStorage::ImGuiStorage
-    ColumnsStorage::ImVector_ImGuiColumns
-    FontWindowScale::Cfloat
-    SettingsOffset::Cint
-    DrawList::Ptr{ImDrawList}
-    DrawListInst::ImDrawList
-    ParentWindow::Ptr{ImGuiWindow}
-    RootWindow::Ptr{ImGuiWindow}
-    RootWindowForTitleBarHighlight::Ptr{ImGuiWindow}
-    RootWindowForNav::Ptr{ImGuiWindow}
-    NavLastChildNavWindow::Ptr{ImGuiWindow}
-    NavLastIds::NTuple{2, ImGuiID}
-    NavRectRel::NTuple{2, ImRect}
-    MemoryCompacted::Bool
-    MemoryDrawListIdxCapacity::Cint
-    MemoryDrawListVtxCapacity::Cint
+struct ImVec2ih
+    x::Int16
+    y::Int16
 end
 
-const ImGuiTabItemFlags = Cint
-const ImS16 = Cshort
+struct ImVector_ImGuiOldColumns
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiOldColumns}
+end
+
+struct ImGuiWindowDockStyle
+    Colors::NTuple{6,ImU32}
+end
+
+@cenum ImGuiDockNodeState::UInt32 begin
+    ImGuiDockNodeState_Unknown = 0
+    ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow = 1
+    ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing = 2
+    ImGuiDockNodeState_HostWindowVisible = 3
+end
+
+
+const ImS16 = Int16
 
 struct ImGuiTabItem
     ID::ImGuiID
     Flags::ImGuiTabItemFlags
+    Window::Ptr{Cvoid}
     LastFrameVisible::Cint
     LastFrameSelected::Cint
     Offset::Cfloat
     Width::Cfloat
     ContentWidth::Cfloat
     NameOffset::ImS16
-    BeginOrder::ImS8
-    IndexDuringLayout::ImS8
+    BeginOrder::ImS16
+    IndexDuringLayout::ImS16
     WantClose::Bool
 end
 
@@ -577,6 +543,7 @@ end
 
 struct ImGuiTabBar
     Tabs::ImVector_ImGuiTabItem
+    Flags::ImGuiTabBarFlags
     ID::ImGuiID
     SelectedTabId::ImGuiID
     NextSelectedTabId::ImGuiID
@@ -584,7 +551,8 @@ struct ImGuiTabBar
     CurrFrameVisible::Cint
     PrevFrameVisible::Cint
     BarRect::ImRect
-    LastTabContentHeight::Cfloat
+    CurrTabsContentsHeight::Cfloat
+    PrevTabsContentsHeight::Cfloat
     WidthAllTabs::Cfloat
     WidthAllTabsIdeal::Cfloat
     ScrollingAnim::Cfloat
@@ -593,16 +561,485 @@ struct ImGuiTabBar
     ScrollingSpeed::Cfloat
     ScrollingRectMinX::Cfloat
     ScrollingRectMaxX::Cfloat
-    Flags::ImGuiTabBarFlags
     ReorderRequestTabId::ImGuiID
     ReorderRequestDir::ImS8
-    TabsActiveCount::ImS8
+    BeginCount::ImS8
     WantLayout::Bool
     VisibleTabWasSubmitted::Bool
     TabsAddedNew::Bool
-    LastTabItemIdx::Cshort
+    TabsActiveCount::ImS16
+    LastTabItemIdx::ImS16
+    ItemSpacingY::Cfloat
     FramePadding::ImVec2
+    BackupCursorPos::ImVec2
     TabsNames::ImGuiTextBuffer
+end
+
+@cenum ImGuiAxis::Int32 begin
+    ImGuiAxis_None = -1
+    ImGuiAxis_X = 0
+    ImGuiAxis_Y = 1
+end
+
+
+const ImGuiDataAuthority = Cint
+
+struct ImGuiDockNode
+    ID::ImGuiID
+    SharedFlags::ImGuiDockNodeFlags
+    LocalFlags::ImGuiDockNodeFlags
+    State::ImGuiDockNodeState
+    ParentNode::Ptr{ImGuiDockNode}
+    ChildNodes::NTuple{2,Ptr{ImGuiDockNode}}
+    Windows::ImVector_ImGuiWindowPtr
+    TabBar::Ptr{ImGuiTabBar}
+    Pos::ImVec2
+    Size::ImVec2
+    SizeRef::ImVec2
+    SplitAxis::ImGuiAxis
+    WindowClass::ImGuiWindowClass
+    HostWindow::Ptr{Cvoid}
+    VisibleWindow::Ptr{Cvoid}
+    CentralNode::Ptr{ImGuiDockNode}
+    OnlyNodeWithWindows::Ptr{ImGuiDockNode}
+    LastFrameAlive::Cint
+    LastFrameActive::Cint
+    LastFrameFocused::Cint
+    LastFocusedNodeId::ImGuiID
+    SelectedTabId::ImGuiID
+    WantCloseTabId::ImGuiID
+    AuthorityForPos::ImGuiDataAuthority
+    AuthorityForSize::ImGuiDataAuthority
+    AuthorityForViewport::ImGuiDataAuthority
+    IsVisible::Bool
+    IsFocused::Bool
+    HasCloseButton::Bool
+    HasWindowMenuButton::Bool
+    EnableCloseButton::Bool
+    WantCloseAll::Bool
+    WantLockSizeOnce::Bool
+    WantMouseMove::Bool
+    WantHiddenTabBarUpdate::Bool
+    WantHiddenTabBarToggle::Bool
+    MarkedForPosSizeWrite::Bool
+end
+
+struct ImGuiWindow
+    Name::Cstring
+    ID::ImGuiID
+    Flags::ImGuiWindowFlags
+    FlagsPreviousFrame::ImGuiWindowFlags
+    WindowClass::ImGuiWindowClass
+    Viewport::Ptr{Cvoid}
+    ViewportId::ImGuiID
+    ViewportPos::ImVec2
+    ViewportAllowPlatformMonitorExtend::Cint
+    Pos::ImVec2
+    Size::ImVec2
+    SizeFull::ImVec2
+    ContentSize::ImVec2
+    ContentSizeIdeal::ImVec2
+    ContentSizeExplicit::ImVec2
+    WindowPadding::ImVec2
+    WindowRounding::Cfloat
+    WindowBorderSize::Cfloat
+    NameBufLen::Cint
+    MoveId::ImGuiID
+    ChildId::ImGuiID
+    Scroll::ImVec2
+    ScrollMax::ImVec2
+    ScrollTarget::ImVec2
+    ScrollTargetCenterRatio::ImVec2
+    ScrollTargetEdgeSnapDist::ImVec2
+    ScrollbarSizes::ImVec2
+    ScrollbarX::Bool
+    ScrollbarY::Bool
+    ViewportOwned::Bool
+    Active::Bool
+    WasActive::Bool
+    WriteAccessed::Bool
+    Collapsed::Bool
+    WantCollapseToggle::Bool
+    SkipItems::Bool
+    Appearing::Bool
+    Hidden::Bool
+    IsFallbackWindow::Bool
+    HasCloseButton::Bool
+    ResizeBorderHeld::UInt8
+    BeginCount::Int16
+    BeginOrderWithinParent::Int16
+    BeginOrderWithinContext::Int16
+    PopupId::ImGuiID
+    AutoFitFramesX::ImS8
+    AutoFitFramesY::ImS8
+    AutoFitChildAxises::ImS8
+    AutoFitOnlyGrows::Bool
+    AutoPosLastDirection::ImGuiDir
+    HiddenFramesCanSkipItems::ImS8
+    HiddenFramesCannotSkipItems::ImS8
+    HiddenFramesForRenderOnly::ImS8
+    SetWindowPosAllowFlags::ImGuiCond
+    SetWindowSizeAllowFlags::ImGuiCond
+    SetWindowCollapsedAllowFlags::ImGuiCond
+    SetWindowDockAllowFlags::ImGuiCond
+    SetWindowPosVal::ImVec2
+    SetWindowPosPivot::ImVec2
+    IDStack::ImVector_ImGuiID
+    DC::ImGuiWindowTempData
+    OuterRectClipped::ImRect
+    InnerRect::ImRect
+    InnerClipRect::ImRect
+    WorkRect::ImRect
+    ParentWorkRect::ImRect
+    ClipRect::ImRect
+    ContentRegionRect::ImRect
+    HitTestHoleSize::ImVec2ih
+    HitTestHoleOffset::ImVec2ih
+    LastFrameActive::Cint
+    LastFrameJustFocused::Cint
+    LastTimeActive::Cfloat
+    ItemWidthDefault::Cfloat
+    StateStorage::ImGuiStorage
+    ColumnsStorage::ImVector_ImGuiOldColumns
+    FontWindowScale::Cfloat
+    FontDpiScale::Cfloat
+    SettingsOffset::Cint
+    DrawList::Ptr{ImDrawList}
+    DrawListInst::ImDrawList
+    ParentWindow::Ptr{ImGuiWindow}
+    RootWindow::Ptr{ImGuiWindow}
+    RootWindowDockStop::Ptr{ImGuiWindow}
+    RootWindowForTitleBarHighlight::Ptr{ImGuiWindow}
+    RootWindowForNav::Ptr{ImGuiWindow}
+    NavLastChildNavWindow::Ptr{ImGuiWindow}
+    NavLastIds::NTuple{2,ImGuiID}
+    NavRectRel::NTuple{2,ImRect}
+    MemoryDrawListIdxCapacity::Cint
+    MemoryDrawListVtxCapacity::Cint
+    MemoryCompacted::Bool
+    DockIsActive::Bool
+    DockTabIsVisible::Bool
+    DockTabWantClose::Bool
+    DockOrder::Int16
+    DockStyle::ImGuiWindowDockStyle
+    DockNode::Ptr{ImGuiDockNode}
+    DockNodeAsHost::Ptr{ImGuiDockNode}
+    DockId::ImGuiID
+    DockTabItemStatusFlags::ImGuiItemStatusFlags
+    DockTabItemRect::ImRect
+end
+
+struct ImVector_ImDrawListPtr
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{Ptr{ImDrawList}}
+end
+
+struct ImDrawDataBuilder
+    Layers::NTuple{2,ImVector_ImDrawListPtr}
+end
+
+struct ImGuiViewportP
+    _ImGuiViewport::ImGuiViewport
+    Idx::Cint
+    LastFrameActive::Cint
+    LastFrontMostStampCount::Cint
+    LastNameHash::ImGuiID
+    LastPos::ImVec2
+    Alpha::Cfloat
+    LastAlpha::Cfloat
+    PlatformMonitor::Int16
+    PlatformWindowCreated::Bool
+    Window::Ptr{ImGuiWindow}
+    DrawListsLastFrame::NTuple{2,Cint}
+    DrawLists::NTuple{2,Ptr{ImDrawList}}
+    DrawDataP::ImDrawData
+    DrawDataBuilder::ImDrawDataBuilder
+    LastPlatformPos::ImVec2
+    LastPlatformSize::ImVec2
+    LastRendererSize::ImVec2
+    WorkOffsetMin::ImVec2
+    WorkOffsetMax::ImVec2
+    CurrWorkOffsetMin::ImVec2
+    CurrWorkOffsetMax::ImVec2
+end
+
+struct ImGuiPtrOrIndex
+    Ptr::Ptr{Cvoid}
+    Index::Cint
+end
+
+struct ImGuiShrinkWidthItem
+    Index::Cint
+    Width::Cfloat
+end
+
+struct ImGuiDataTypeTempStorage
+    Data::NTuple{8,ImU8}
+end
+
+struct StbTexteditRow
+    x0::Cfloat
+    x1::Cfloat
+    baseline_y_delta::Cfloat
+    ymin::Cfloat
+    ymax::Cfloat
+    num_chars::Cint
+end
+
+struct StbUndoRecord
+    where::Cint
+    insert_length::Cint
+    delete_length::Cint
+    char_storage::Cint
+end
+
+struct StbUndoState
+    undo_rec::NTuple{99,StbUndoRecord}
+    undo_char::NTuple{999,ImWchar}
+    undo_point::Int16
+    redo_point::Int16
+    undo_char_point::Cint
+    redo_char_point::Cint
+end
+
+struct STB_TexteditState
+    cursor::Cint
+    select_start::Cint
+    select_end::Cint
+    insert_mode::Cuchar
+    row_count_per_page::Cint
+    cursor_at_end_of_line::Cuchar
+    initialized::Cuchar
+    has_preferred_x::Cuchar
+    single_line::Cuchar
+    padding1::Cuchar
+    padding2::Cuchar
+    padding3::Cuchar
+    preferred_x::Cfloat
+    undostate::StbUndoState
+end
+
+struct ImGuiWindowSettings
+    ID::ImGuiID
+    Pos::ImVec2ih
+    Size::ImVec2ih
+    ViewportPos::ImVec2ih
+    ViewportId::ImGuiID
+    DockId::ImGuiID
+    ClassId::ImGuiID
+    DockOrder::Int16
+    Collapsed::Bool
+    WantApply::Bool
+end
+
+const ImGuiTableColumnsSettings = Cvoid
+const ImGuiTableFlags = Cint
+
+struct ImGuiTableSettings
+    ID::ImGuiID
+    SaveFlags::ImGuiTableFlags
+    RefScale::Cfloat
+    ColumnsCount::ImGuiTableColumnIdx
+    ColumnsCountMax::ImGuiTableColumnIdx
+    WantApply::Bool
+end
+
+const ImGuiTableColumnFlags = Cint
+const ImGuiTableDrawChannelIdx = ImU8
+
+struct ImGuiTableColumn
+    Flags::ImGuiTableColumnFlags
+    WidthGiven::Cfloat
+    MinX::Cfloat
+    MaxX::Cfloat
+    WidthRequest::Cfloat
+    WidthAuto::Cfloat
+    StretchWeight::Cfloat
+    InitStretchWeightOrWidth::Cfloat
+    ClipRect::ImRect
+    UserID::ImGuiID
+    WorkMinX::Cfloat
+    WorkMaxX::Cfloat
+    ItemWidth::Cfloat
+    ContentMaxXFrozen::Cfloat
+    ContentMaxXUnfrozen::Cfloat
+    ContentMaxXHeadersUsed::Cfloat
+    ContentMaxXHeadersIdeal::Cfloat
+    NameOffset::ImS16
+    DisplayOrder::ImGuiTableColumnIdx
+    IndexWithinEnabledSet::ImGuiTableColumnIdx
+    PrevEnabledColumn::ImGuiTableColumnIdx
+    NextEnabledColumn::ImGuiTableColumnIdx
+    SortOrder::ImGuiTableColumnIdx
+    DrawChannelCurrent::ImGuiTableDrawChannelIdx
+    DrawChannelFrozen::ImGuiTableDrawChannelIdx
+    DrawChannelUnfrozen::ImGuiTableDrawChannelIdx
+    IsEnabled::Bool
+    IsEnabledNextFrame::Bool
+    IsVisibleX::Bool
+    IsVisibleY::Bool
+    IsRequestOutput::Bool
+    IsSkipItems::Bool
+    IsPreserveWidthAuto::Bool
+    NavLayerCurrent::ImS8
+    AutoFitQueue::ImU8
+    CannotSkipItemsQueue::ImU8
+    SortDirection::ImU8
+    SortDirectionsAvailCount::ImU8
+    SortDirectionsAvailMask::ImU8
+    SortDirectionsAvailList::ImU8
+end
+
+struct ImSpan_ImGuiTableColumn
+    Data::Ptr{ImGuiTableColumn}
+    DataEnd::Ptr{ImGuiTableColumn}
+end
+
+struct ImSpan_ImGuiTableColumnIdx
+    Data::Ptr{ImGuiTableColumnIdx}
+    DataEnd::Ptr{ImGuiTableColumnIdx}
+end
+
+struct ImSpan_ImGuiTableCellData
+    Data::Ptr{ImGuiTableCellData}
+    DataEnd::Ptr{ImGuiTableCellData}
+end
+
+const ImU64 = UInt64
+const ImGuiTableRowFlags = Cint
+const ImGuiSortDirection = Cint
+
+struct ImGuiTableColumnSortSpecs
+    ColumnUserID::ImGuiID
+    ColumnIndex::ImS16
+    SortOrder::ImS16
+    SortDirection::ImGuiSortDirection
+end
+
+struct ImVector_ImGuiTableColumnSortSpecs
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiTableColumnSortSpecs}
+end
+
+struct ImGuiTableSortSpecs
+    Specs::Ptr{ImGuiTableColumnSortSpecs}
+    SpecsCount::Cint
+    SpecsDirty::Bool
+end
+
+struct ImGuiTable
+    ID::ImGuiID
+    Flags::ImGuiTableFlags
+    RawData::Ptr{Cvoid}
+    Columns::ImSpan_ImGuiTableColumn
+    DisplayOrderToIndex::ImSpan_ImGuiTableColumnIdx
+    RowCellData::ImSpan_ImGuiTableCellData
+    EnabledMaskByDisplayOrder::ImU64
+    EnabledMaskByIndex::ImU64
+    VisibleMaskByIndex::ImU64
+    RequestOutputMaskByIndex::ImU64
+    SettingsLoadedFlags::ImGuiTableFlags
+    SettingsOffset::Cint
+    LastFrameActive::Cint
+    ColumnsCount::Cint
+    CurrentRow::Cint
+    CurrentColumn::Cint
+    InstanceCurrent::ImS16
+    InstanceInteracted::ImS16
+    RowPosY1::Cfloat
+    RowPosY2::Cfloat
+    RowMinHeight::Cfloat
+    RowTextBaseline::Cfloat
+    RowIndentOffsetX::Cfloat
+    RowFlags::ImGuiTableRowFlags
+    LastRowFlags::ImGuiTableRowFlags
+    RowBgColorCounter::Cint
+    RowBgColor::NTuple{2,ImU32}
+    BorderColorStrong::ImU32
+    BorderColorLight::ImU32
+    BorderX1::Cfloat
+    BorderX2::Cfloat
+    HostIndentX::Cfloat
+    MinColumnWidth::Cfloat
+    OuterPaddingX::Cfloat
+    CellPaddingX::Cfloat
+    CellPaddingY::Cfloat
+    CellSpacingX1::Cfloat
+    CellSpacingX2::Cfloat
+    LastOuterHeight::Cfloat
+    LastFirstRowHeight::Cfloat
+    InnerWidth::Cfloat
+    ColumnsGivenWidth::Cfloat
+    ColumnsAutoFitWidth::Cfloat
+    ResizedColumnNextWidth::Cfloat
+    ResizeLockMinContentsX2::Cfloat
+    RefScale::Cfloat
+    OuterRect::ImRect
+    InnerRect::ImRect
+    WorkRect::ImRect
+    InnerClipRect::ImRect
+    BgClipRect::ImRect
+    Bg0ClipRectForDrawCmd::ImRect
+    Bg2ClipRectForDrawCmd::ImRect
+    HostClipRect::ImRect
+    HostBackupWorkRect::ImRect
+    HostBackupParentWorkRect::ImRect
+    HostBackupInnerClipRect::ImRect
+    HostBackupPrevLineSize::ImVec2
+    HostBackupCurrLineSize::ImVec2
+    HostBackupCursorMaxPos::ImVec2
+    UserOuterSize::ImVec2
+    HostBackupColumnsOffset::ImVec1
+    HostBackupItemWidth::Cfloat
+    HostBackupItemWidthStackSize::Cint
+    OuterWindow::Ptr{ImGuiWindow}
+    InnerWindow::Ptr{ImGuiWindow}
+    ColumnsNames::ImGuiTextBuffer
+    DrawSplitter::ImDrawListSplitter
+    SortSpecsSingle::ImGuiTableColumnSortSpecs
+    SortSpecsMulti::ImVector_ImGuiTableColumnSortSpecs
+    SortSpecs::ImGuiTableSortSpecs
+    SortSpecsCount::ImGuiTableColumnIdx
+    ColumnsEnabledCount::ImGuiTableColumnIdx
+    ColumnsEnabledFixedCount::ImGuiTableColumnIdx
+    DeclColumnsCount::ImGuiTableColumnIdx
+    HoveredColumnBody::ImGuiTableColumnIdx
+    HoveredColumnBorder::ImGuiTableColumnIdx
+    AutoFitSingleColumn::ImGuiTableColumnIdx
+    ResizedColumn::ImGuiTableColumnIdx
+    LastResizedColumn::ImGuiTableColumnIdx
+    HeldHeaderColumn::ImGuiTableColumnIdx
+    ReorderColumn::ImGuiTableColumnIdx
+    ReorderColumnDir::ImGuiTableColumnIdx
+    LeftMostStretchedColumn::ImGuiTableColumnIdx
+    RightMostStretchedColumn::ImGuiTableColumnIdx
+    RightMostEnabledColumn::ImGuiTableColumnIdx
+    ContextPopupColumn::ImGuiTableColumnIdx
+    FreezeRowsRequest::ImGuiTableColumnIdx
+    FreezeRowsCount::ImGuiTableColumnIdx
+    FreezeColumnsRequest::ImGuiTableColumnIdx
+    FreezeColumnsCount::ImGuiTableColumnIdx
+    RowCellDataCurrent::ImGuiTableColumnIdx
+    DummyDrawChannel::ImGuiTableDrawChannelIdx
+    Bg2DrawChannelCurrent::ImGuiTableDrawChannelIdx
+    Bg2DrawChannelUnfrozen::ImGuiTableDrawChannelIdx
+    IsLayoutLocked::Bool
+    IsInsideRow::Bool
+    IsInitializing::Bool
+    IsSortSpecsDirty::Bool
+    IsUsingHeaders::Bool
+    IsContextPopupOpen::Bool
+    IsSettingsRequestLoad::Bool
+    IsSettingsDirty::Bool
+    IsDefaultDisplayOrder::Bool
+    IsResetAllRequest::Bool
+    IsResetDisplayOrderRequest::Bool
+    IsUnfrozenRows::Bool
+    IsDefaultSizingPolicy::Bool
+    MemoryCompacted::Bool
+    HostSkipItems::Bool
 end
 
 const ImGuiStyleVar = Cint
@@ -651,17 +1088,33 @@ struct ImGuiNextWindowData
     PosCond::ImGuiCond
     SizeCond::ImGuiCond
     CollapsedCond::ImGuiCond
+    DockCond::ImGuiCond
     PosVal::ImVec2
     PosPivotVal::ImVec2
     SizeVal::ImVec2
     ContentSizeVal::ImVec2
     ScrollVal::ImVec2
+    PosUndock::Bool
     CollapsedVal::Bool
     SizeConstraintRect::ImRect
     SizeCallback::ImGuiSizeCallback
     SizeCallbackUserData::Ptr{Cvoid}
     BgAlphaVal::Cfloat
+    ViewportId::ImGuiID
+    DockId::ImGuiID
+    WindowClass::ImGuiWindowClass
     MenuBarOffsetMinVal::ImVec2
+end
+
+struct ImGuiMetricsConfig
+    ShowWindowsRects::Bool
+    ShowWindowsBeginOrder::Bool
+    ShowTablesRects::Bool
+    ShowDrawCmdMesh::Bool
+    ShowDrawCmdBoundingBoxes::Bool
+    ShowDockingNodes::Bool
+    ShowWindowsRectsType::Cint
+    ShowTablesRectsType::Cint
 end
 
 struct ImGuiNavMoveResult
@@ -679,39 +1132,6 @@ struct ImGuiLastItemDataBackup
     LastItemStatusFlags::ImGuiItemStatusFlags
     LastItemRect::ImRect
     LastItemDisplayRect::ImRect
-end
-
-struct StbUndoRecord
-    where::Cint
-    insert_length::Cint
-    delete_length::Cint
-    char_storage::Cint
-end
-
-struct StbUndoState
-    undo_rec::NTuple{99, StbUndoRecord}
-    undo_char::NTuple{999, ImWchar}
-    undo_point::Int16
-    redo_point::Int16
-    undo_char_point::Cint
-    redo_char_point::Cint
-end
-
-struct STB_TexteditState
-    cursor::Cint
-    select_start::Cint
-    select_end::Cint
-    insert_mode::Cuchar
-    row_count_per_page::Cint
-    cursor_at_end_of_line::Cuchar
-    initialized::Cuchar
-    has_preferred_x::Cuchar
-    single_line::Cuchar
-    padding1::Cuchar
-    padding2::Cuchar
-    padding3::Cuchar
-    preferred_x::Cfloat
-    undostate::StbUndoState
 end
 
 const ImGuiInputTextFlags = Cint
@@ -737,11 +1157,68 @@ struct ImGuiInputTextState
     UserCallbackData::Ptr{Cvoid}
 end
 
+struct ImGuiGroupData
+    WindowID::ImGuiID
+    BackupCursorPos::ImVec2
+    BackupCursorMaxPos::ImVec2
+    BackupIndent::ImVec1
+    BackupGroupOffset::ImVec1
+    BackupCurrLineSize::ImVec2
+    BackupCurrLineTextBaseOffset::Cfloat
+    BackupActiveIdIsAlive::ImGuiID
+    BackupActiveIdPreviousFrameIsAlive::Bool
+    EmitItem::Bool
+end
+
+const ImGuiDockNodeSettings = Cvoid
+const ImGuiDockRequest = Cvoid
+
+struct ImVector_ImGuiDockRequest
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiDockRequest}
+end
+
+struct ImVector_ImGuiDockNodeSettings
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiDockNodeSettings}
+end
+
+struct ImGuiDockContext
+    Nodes::ImGuiStorage
+    Requests::ImVector_ImGuiDockRequest
+    NodesSettings::ImVector_ImGuiDockNodeSettings
+    WantFullRebuild::Bool
+end
+
 struct ImGuiDataTypeInfo
-    Size::Csize_t
+    Size::Cint
     Name::Cstring
     PrintFmt::Cstring
     ScanFmt::Cstring
+end
+
+@cenum ImGuiContextHookType::UInt32 begin
+    ImGuiContextHookType_NewFramePre = 0
+    ImGuiContextHookType_NewFramePost = 1
+    ImGuiContextHookType_EndFramePre = 2
+    ImGuiContextHookType_EndFramePost = 3
+    ImGuiContextHookType_RenderPre = 4
+    ImGuiContextHookType_RenderPost = 5
+    ImGuiContextHookType_Shutdown = 6
+    ImGuiContextHookType_PendingRemoval_ = 7
+end
+
+
+const ImGuiContextHookCallback = Ptr{Cvoid}
+
+struct ImGuiContextHook
+    HookId::ImGuiID
+    Type::ImGuiContextHookType
+    Owner::ImGuiID
+    Callback::ImGuiContextHookCallback
+    UserData::Ptr{Cvoid}
 end
 
 const ImGuiCol = Cint
@@ -749,16 +1226,6 @@ const ImGuiCol = Cint
 struct ImGuiColorMod
     Col::ImGuiCol
     BackupValue::ImVec4
-end
-
-struct ImVector_ImDrawListPtr
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{Ptr{ImDrawList}}
-end
-
-struct ImDrawDataBuilder
-    Layers::NTuple{2, ImVector_ImDrawListPtr}
 end
 
 struct ImVector_ImU32
@@ -771,6 +1238,11 @@ struct ImBitVector
     Storage::ImVector_ImU32
 end
 
+struct ImGuiTextRange
+    b::Cstring
+    e::Cstring
+end
+
 struct ImVector_ImGuiTextRange
     Size::Cint
     Capacity::Cint
@@ -778,7 +1250,7 @@ struct ImVector_ImGuiTextRange
 end
 
 struct ImGuiTextFilter
-    InputBuf::NTuple{256, Cchar}
+    InputBuf::NTuple{256,UInt8}
     Filters::ImVector_ImGuiTextRange
     CountGrep::Cint
 end
@@ -800,6 +1272,7 @@ struct ImGuiStyle
     FrameBorderSize::Cfloat
     ItemSpacing::ImVec2
     ItemInnerSpacing::ImVec2
+    CellPadding::ImVec2
     TouchExtraPadding::ImVec2
     IndentSpacing::Cfloat
     ColumnsMinSpacing::Cfloat
@@ -822,7 +1295,7 @@ struct ImGuiStyle
     AntiAliasedFill::Bool
     CurveTessellationTol::Cfloat
     CircleSegmentMaxError::Cfloat
-    Colors::NTuple{48, ImVec4}
+    Colors::NTuple{55,ImVec4}
 end
 
 struct ImGuiSizeCallbackData
@@ -832,13 +1305,62 @@ struct ImGuiSizeCallbackData
     DesiredSize::ImVec2
 end
 
+struct ImGuiPlatformMonitor
+    MainPos::ImVec2
+    MainSize::ImVec2
+    WorkPos::ImVec2
+    WorkSize::ImVec2
+    DpiScale::Cfloat
+end
+
+struct ImVector_ImGuiPlatformMonitor
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiPlatformMonitor}
+end
+
+struct ImVector_ImGuiViewportPtr
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{Ptr{ImGuiViewport}}
+end
+
+struct ImGuiPlatformIO
+    Platform_CreateWindow::Ptr{Cvoid}
+    Platform_DestroyWindow::Ptr{Cvoid}
+    Platform_ShowWindow::Ptr{Cvoid}
+    Platform_SetWindowPos::Ptr{Cvoid}
+    Platform_GetWindowPos::Ptr{Cvoid}
+    Platform_SetWindowSize::Ptr{Cvoid}
+    Platform_GetWindowSize::Ptr{Cvoid}
+    Platform_SetWindowFocus::Ptr{Cvoid}
+    Platform_GetWindowFocus::Ptr{Cvoid}
+    Platform_GetWindowMinimized::Ptr{Cvoid}
+    Platform_SetWindowTitle::Ptr{Cvoid}
+    Platform_SetWindowAlpha::Ptr{Cvoid}
+    Platform_UpdateWindow::Ptr{Cvoid}
+    Platform_RenderWindow::Ptr{Cvoid}
+    Platform_SwapBuffers::Ptr{Cvoid}
+    Platform_GetWindowDpiScale::Ptr{Cvoid}
+    Platform_OnChangedViewport::Ptr{Cvoid}
+    Platform_SetImeInputPos::Ptr{Cvoid}
+    Platform_CreateVkSurface::Ptr{Cvoid}
+    Renderer_CreateWindow::Ptr{Cvoid}
+    Renderer_DestroyWindow::Ptr{Cvoid}
+    Renderer_SetWindowSize::Ptr{Cvoid}
+    Renderer_RenderWindow::Ptr{Cvoid}
+    Renderer_SwapBuffers::Ptr{Cvoid}
+    Monitors::ImVector_ImGuiPlatformMonitor
+    Viewports::ImVector_ImGuiViewportPtr
+end
+
 struct ImGuiPayload
     Data::Ptr{Cvoid}
     DataSize::Cint
     SourceId::ImGuiID
     SourceParentId::ImGuiID
     DataFrameCount::Cint
-    DataType::NTuple{33, Cchar}
+    DataType::NTuple{33,UInt8}
     Preview::Bool
     Delivery::Bool
 end
@@ -852,6 +1374,7 @@ struct ImGuiListClipper
     DisplayEnd::Cint
     ItemsCount::Cint
     StepNo::Cint
+    ItemsFrozen::Cint
     ItemsHeight::Cfloat
     StartPosY::Cfloat
 end
@@ -888,7 +1411,7 @@ struct ImGuiIO
     MouseDoubleClickTime::Cfloat
     MouseDoubleClickMaxDist::Cfloat
     MouseDragThreshold::Cfloat
-    KeyMap::NTuple{22, Cint}
+    KeyMap::NTuple{22,Cint}
     KeyRepeatDelay::Cfloat
     KeyRepeatRate::Cfloat
     UserData::Ptr{Cvoid}
@@ -897,12 +1420,21 @@ struct ImGuiIO
     FontAllowUserScaling::Bool
     FontDefault::Ptr{ImFont}
     DisplayFramebufferScale::ImVec2
+    ConfigDockingNoSplit::Bool
+    ConfigDockingWithShift::Bool
+    ConfigDockingAlwaysTabBar::Bool
+    ConfigDockingTransparentPayload::Bool
+    ConfigViewportsNoAutoMerge::Bool
+    ConfigViewportsNoTaskBarIcon::Bool
+    ConfigViewportsNoDecoration::Bool
+    ConfigViewportsNoDefaultParent::Bool
     MouseDrawCursor::Bool
     ConfigMacOSXBehaviors::Bool
     ConfigInputTextCursorBlink::Bool
+    ConfigDragClickToInputText::Bool
     ConfigWindowsResizeFromEdges::Bool
     ConfigWindowsMoveFromTitleBarOnly::Bool
-    ConfigWindowsMemoryCompactTimer::Cfloat
+    ConfigMemoryCompactTimer::Cfloat
     BackendPlatformName::Cstring
     BackendRendererName::Cstring
     BackendPlatformUserData::Ptr{Cvoid}
@@ -911,19 +1443,17 @@ struct ImGuiIO
     GetClipboardTextFn::Ptr{Cvoid}
     SetClipboardTextFn::Ptr{Cvoid}
     ClipboardUserData::Ptr{Cvoid}
-    ImeSetInputScreenPosFn::Ptr{Cvoid}
-    ImeWindowHandle::Ptr{Cvoid}
-    RenderDrawListsFnUnused::Ptr{Cvoid}
     MousePos::ImVec2
-    MouseDown::NTuple{5, Bool}
+    MouseDown::NTuple{5,Bool}
     MouseWheel::Cfloat
     MouseWheelH::Cfloat
+    MouseHoveredViewport::ImGuiID
     KeyCtrl::Bool
     KeyShift::Bool
     KeyAlt::Bool
     KeySuper::Bool
-    KeysDown::NTuple{512, Bool}
-    NavInputs::NTuple{21, Cfloat}
+    KeysDown::NTuple{512,Bool}
+    NavInputs::NTuple{21,Cfloat}
     WantCaptureMouse::Bool
     WantCaptureKeyboard::Bool
     WantTextInput::Bool
@@ -940,27 +1470,25 @@ struct ImGuiIO
     MouseDelta::ImVec2
     KeyMods::ImGuiKeyModFlags
     MousePosPrev::ImVec2
-    MouseClickedPos::NTuple{5, ImVec2}
-    MouseClickedTime::NTuple{5, Cdouble}
-    MouseClicked::NTuple{5, Bool}
-    MouseDoubleClicked::NTuple{5, Bool}
-    MouseReleased::NTuple{5, Bool}
-    MouseDownOwned::NTuple{5, Bool}
-    MouseDownWasDoubleClick::NTuple{5, Bool}
-    MouseDownDuration::NTuple{5, Cfloat}
-    MouseDownDurationPrev::NTuple{5, Cfloat}
-    MouseDragMaxDistanceAbs::NTuple{5, ImVec2}
-    MouseDragMaxDistanceSqr::NTuple{5, Cfloat}
-    KeysDownDuration::NTuple{512, Cfloat}
-    KeysDownDurationPrev::NTuple{512, Cfloat}
-    NavInputsDownDuration::NTuple{21, Cfloat}
-    NavInputsDownDurationPrev::NTuple{21, Cfloat}
+    MouseClickedPos::NTuple{5,ImVec2}
+    MouseClickedTime::NTuple{5,Cdouble}
+    MouseClicked::NTuple{5,Bool}
+    MouseDoubleClicked::NTuple{5,Bool}
+    MouseReleased::NTuple{5,Bool}
+    MouseDownOwned::NTuple{5,Bool}
+    MouseDownWasDoubleClick::NTuple{5,Bool}
+    MouseDownDuration::NTuple{5,Cfloat}
+    MouseDownDurationPrev::NTuple{5,Cfloat}
+    MouseDragMaxDistanceAbs::NTuple{5,ImVec2}
+    MouseDragMaxDistanceSqr::NTuple{5,Cfloat}
+    KeysDownDuration::NTuple{512,Cfloat}
+    KeysDownDurationPrev::NTuple{512,Cfloat}
+    NavInputsDownDuration::NTuple{21,Cfloat}
+    NavInputsDownDurationPrev::NTuple{21,Cfloat}
     PenPressure::Cfloat
     InputQueueSurrogate::ImWchar16
     InputQueueCharacters::ImVector_ImWchar
 end
-
-const ImU64 = UInt64
 
 @cenum ImGuiInputSource::UInt32 begin
     ImGuiInputSource_None = 0
@@ -984,10 +1512,28 @@ struct ImVector_ImGuiStyleMod
     Data::Ptr{ImGuiStyleMod}
 end
 
+struct ImVector_ImGuiItemFlags
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiItemFlags}
+end
+
+struct ImVector_ImGuiGroupData
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiGroupData}
+end
+
 struct ImVector_ImGuiPopupData
     Size::Cint
     Capacity::Cint
     Data::Ptr{ImGuiPopupData}
+end
+
+struct ImVector_ImGuiViewportPPtr
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{Ptr{ImGuiViewportP}}
 end
 
 const ImGuiNavMoveFlags = Cint
@@ -999,17 +1545,6 @@ const ImGuiNavMoveFlags = Cint
 end
 
 
-struct ImDrawData
-    Valid::Bool
-    CmdLists::Ptr{Ptr{ImDrawList}}
-    CmdListsCount::Cint
-    TotalIdxCount::Cint
-    TotalVtxCount::Cint
-    DisplayPos::ImVec2
-    DisplaySize::ImVec2
-    FramebufferScale::ImVec2
-end
-
 const ImGuiMouseCursor = Cint
 const ImGuiDragDropFlags = Cint
 
@@ -1019,16 +1554,16 @@ struct ImVector_unsigned_char
     Data::Ptr{Cuchar}
 end
 
-struct ImVector_ImGuiTabBar
+struct ImVector_ImGuiTable
     Size::Cint
     Capacity::Cint
-    Data::Ptr{ImGuiTabBar}
+    Data::Ptr{ImGuiTable}
 end
 
 const ImPoolIdx = Cint
 
-struct ImPool_ImGuiTabBar
-    Buf::ImVector_ImGuiTabBar
+struct ImPool_ImGuiTable
+    Buf::ImVector_ImGuiTable
     Map::ImGuiStorage
     FreeIdx::ImPoolIdx
 end
@@ -1037,6 +1572,18 @@ struct ImVector_ImGuiPtrOrIndex
     Size::Cint
     Capacity::Cint
     Data::Ptr{ImGuiPtrOrIndex}
+end
+
+struct ImVector_ImGuiTabBar
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiTabBar}
+end
+
+struct ImPool_ImGuiTabBar
+    Buf::ImVector_ImGuiTabBar
+    Map::ImGuiStorage
+    FreeIdx::ImPoolIdx
 end
 
 struct ImVector_ImGuiShrinkWidthItem
@@ -1063,6 +1610,22 @@ struct ImChunkStream_ImGuiWindowSettings
     Buf::ImVector_ImGuiWindowSettings
 end
 
+struct ImVector_ImGuiTableSettings
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiTableSettings}
+end
+
+struct ImChunkStream_ImGuiTableSettings
+    Buf::ImVector_ImGuiTableSettings
+end
+
+struct ImVector_ImGuiContextHook
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiContextHook}
+end
+
 @cenum ImGuiLogType::UInt32 begin
     ImGuiLogType_None = 0
     ImGuiLogType_TTY = 1
@@ -1072,13 +1635,16 @@ end
 end
 
 
-const ImFileHandle = Ptr{Libc.FILE}
+const ImFileHandle = Ptr{Cint}
 
 struct ImGuiContext
     Initialized::Bool
     FontAtlasOwnedByContext::Bool
     IO::ImGuiIO
+    PlatformIO::ImGuiPlatformIO
     Style::ImGuiStyle
+    ConfigFlagsCurrFrame::ImGuiConfigFlags
+    ConfigFlagsLastFrame::ImGuiConfigFlags
     Font::Ptr{ImFont}
     FontSize::Cfloat
     FontBaseSize::Cfloat
@@ -1086,10 +1652,12 @@ struct ImGuiContext
     Time::Cdouble
     FrameCount::Cint
     FrameCountEnded::Cint
+    FrameCountPlatformEnded::Cint
     FrameCountRendered::Cint
     WithinFrameScope::Bool
     WithinFrameScopeWithImplicitWindow::Bool
     WithinEndChild::Bool
+    GcCompactAll::Bool
     TestEngineHookItems::Bool
     TestEngineHookIdInfo::ImGuiID
     TestEngine::Ptr{Cvoid}
@@ -1103,6 +1671,7 @@ struct ImGuiContext
     HoveredWindow::Ptr{ImGuiWindow}
     HoveredRootWindow::Ptr{ImGuiWindow}
     HoveredWindowUnderMovingWindow::Ptr{ImGuiWindow}
+    HoveredDockNode::Ptr{ImGuiDockNode}
     MovingWindow::Ptr{ImGuiWindow}
     WheelingWindow::Ptr{ImGuiWindow}
     WheelingWindowRefMousePos::ImVec2
@@ -1110,6 +1679,8 @@ struct ImGuiContext
     HoveredId::ImGuiID
     HoveredIdPreviousFrame::ImGuiID
     HoveredIdAllowOverlap::Bool
+    HoveredIdUsingMouseWheel::Bool
+    HoveredIdPreviousFrameUsingMouseWheel::Bool
     HoveredIdDisabled::Bool
     HoveredIdTimer::Cfloat
     HoveredIdNotActiveTimer::Cfloat
@@ -1122,6 +1693,7 @@ struct ImGuiContext
     ActiveIdHasBeenPressedBefore::Bool
     ActiveIdHasBeenEditedBefore::Bool
     ActiveIdHasBeenEditedThisFrame::Bool
+    ActiveIdUsingMouseWheel::Bool
     ActiveIdUsingNavDirMask::ImU32
     ActiveIdUsingNavInputMask::ImU32
     ActiveIdUsingKeyInputMask::ImU64
@@ -1137,11 +1709,21 @@ struct ImGuiContext
     LastActiveIdTimer::Cfloat
     NextWindowData::ImGuiNextWindowData
     NextItemData::ImGuiNextItemData
-    ColorModifiers::ImVector_ImGuiColorMod
-    StyleModifiers::ImVector_ImGuiStyleMod
+    ColorStack::ImVector_ImGuiColorMod
+    StyleVarStack::ImVector_ImGuiStyleMod
     FontStack::ImVector_ImFontPtr
+    FocusScopeStack::ImVector_ImGuiID
+    ItemFlagsStack::ImVector_ImGuiItemFlags
+    GroupStack::ImVector_ImGuiGroupData
     OpenPopupStack::ImVector_ImGuiPopupData
     BeginPopupStack::ImVector_ImGuiPopupData
+    Viewports::ImVector_ImGuiViewportPPtr
+    CurrentDpiScale::Cfloat
+    CurrentViewport::Ptr{ImGuiViewportP}
+    MouseViewport::Ptr{ImGuiViewportP}
+    MouseLastHoveredViewport::Ptr{ImGuiViewportP}
+    PlatformLastFocusedViewportId::ImGuiID
+    ViewportFrontMostStampCount::Cint
     NavWindow::Ptr{ImGuiWindow}
     NavId::ImGuiID
     NavFocusScopeId::ImGuiID
@@ -1193,11 +1775,7 @@ struct ImGuiContext
     FocusRequestNextCounterRegular::Cint
     FocusRequestNextCounterTabStop::Cint
     FocusTabPressed::Bool
-    DrawData::ImDrawData
-    DrawDataBuilder::ImDrawDataBuilder
     DimBgRatio::Cfloat
-    BackgroundDrawList::ImDrawList
-    ForegroundDrawList::ImDrawList
     MouseCursor::ImGuiMouseCursor
     DragDropActive::Bool
     DragDropWithinSource::Bool
@@ -1215,7 +1793,12 @@ struct ImGuiContext
     DragDropAcceptFrameCount::Cint
     DragDropHoldJustPressedId::ImGuiID
     DragDropPayloadBufHeap::ImVector_unsigned_char
-    DragDropPayloadBufLocal::NTuple{16, Cuchar}
+    DragDropPayloadBufLocal::NTuple{16,Cuchar}
+    CurrentTable::Ptr{ImGuiTable}
+    Tables::ImPool_ImGuiTable
+    CurrentTableStack::ImVector_ImGuiPtrOrIndex
+    TablesLastTimeActive::ImVector_float
+    DrawChannelsTempMergeBuffer::ImVector_ImDrawChannel
     CurrentTabBar::Ptr{ImGuiTabBar}
     TabBars::ImPool_ImGuiTabBar
     CurrentTabBarStack::ImVector_ImGuiPtrOrIndex
@@ -1227,7 +1810,7 @@ struct ImGuiContext
     ColorEditOptions::ImGuiColorEditFlags
     ColorEditLastHue::Cfloat
     ColorEditLastSat::Cfloat
-    ColorEditLastColor::NTuple{3, Cfloat}
+    ColorEditLastColor::NTuple{3,Cfloat}
     ColorPickerRef::ImVec4
     SliderCurrentAccum::Cfloat
     SliderCurrentAccumDirty::Bool
@@ -1236,20 +1819,28 @@ struct ImGuiContext
     DragSpeedDefaultRatio::Cfloat
     ScrollbarClickDeltaToGrabCenter::Cfloat
     TooltipOverrideCount::Cint
+    TooltipSlowDelay::Cfloat
     ClipboardHandlerData::ImVector_char
     MenusIdSubmittedThisFrame::ImVector_ImGuiID
     PlatformImePos::ImVec2
     PlatformImeLastPos::ImVec2
-    PlatformLocaleDecimalPoint::Cchar
+    PlatformImePosViewport::Ptr{ImGuiViewportP}
+    PlatformLocaleDecimalPoint::UInt8
+    DockContext::ImGuiDockContext
     SettingsLoaded::Bool
     SettingsDirtyTimer::Cfloat
     SettingsIniData::ImGuiTextBuffer
     SettingsHandlers::ImVector_ImGuiSettingsHandler
     SettingsWindows::ImChunkStream_ImGuiWindowSettings
+    SettingsTables::ImChunkStream_ImGuiTableSettings
+    Hooks::ImVector_ImGuiContextHook
+    HookIdNext::ImGuiID
     LogEnabled::Bool
     LogType::ImGuiLogType
     LogFile::ImFileHandle
     LogBuffer::ImGuiTextBuffer
+    LogNextPrefix::Cstring
+    LogNextSuffix::Cstring
     LogLinePosY::Cfloat
     LogLineFirstItem::Bool
     LogDepthRef::Cint
@@ -1257,13 +1848,14 @@ struct ImGuiContext
     LogDepthToExpandDefault::Cint
     DebugItemPickerActive::Bool
     DebugItemPickerBreakId::ImGuiID
-    FramerateSecPerFrame::NTuple{120, Cfloat}
+    DebugMetricsConfig::ImGuiMetricsConfig
+    FramerateSecPerFrame::NTuple{120,Cfloat}
     FramerateSecPerFrameIdx::Cint
     FramerateSecPerFrameAccum::Cfloat
     WantCaptureMouseNextFrame::Cint
     WantCaptureKeyboardNextFrame::Cint
     WantTextInputNextFrame::Cint
-    TempBuffer::NTuple{3073, Cchar}
+    TempBuffer::NTuple{3073,UInt8}
 end
 
 struct ImColor
@@ -1277,6 +1869,7 @@ end
 const ImGuiDataType = Cint
 const ImGuiNavInput = Cint
 const ImGuiMouseButton = Cint
+const ImGuiTableBgTarget = Cint
 const ImDrawCornerFlags = Cint
 const ImGuiButtonFlags = Cint
 const ImGuiComboFlags = Cint
@@ -1286,8 +1879,8 @@ const ImGuiPopupFlags = Cint
 const ImGuiSelectableFlags = Cint
 const ImGuiSliderFlags = Cint
 const ImGuiTreeNodeFlags = Cint
-const ImWchar32 = Cuint
-const ImU16 = Cushort
+const ImWchar32 = UInt32
+const ImU16 = UInt16
 const ImS32 = Cint
 const ImS64 = Int64
 const ImGuiNavHighlightFlags = Cint
@@ -1295,6 +1888,7 @@ const ImGuiNavDirSourceFlags = Cint
 const ImGuiSeparatorFlags = Cint
 const ImGuiTextFlags = Cint
 const ImGuiTooltipFlags = Cint
+const ImGuiErrorLogCallback = Ptr{Cvoid}
 
 struct ImVector
     Size::Cint
@@ -1302,13 +1896,10 @@ struct ImVector
     Data::Ptr{Cvoid}
 end
 
-struct StbTexteditRow
-    x0::Cfloat
-    x1::Cfloat
-    baseline_y_delta::Cfloat
-    ymin::Cfloat
-    ymax::Cfloat
-    num_chars::Cint
+struct ImVector_const_charPtr
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{Cstring}
 end
 
 @cenum ImGuiWindowFlags_::UInt32 begin
@@ -1333,6 +1924,7 @@ end
     ImGuiWindowFlags_NoNavInputs = 262144
     ImGuiWindowFlags_NoNavFocus = 524288
     ImGuiWindowFlags_UnsavedDocument = 1048576
+    ImGuiWindowFlags_NoDocking = 2097152
     ImGuiWindowFlags_NoNav = 786432
     ImGuiWindowFlags_NoDecoration = 43
     ImGuiWindowFlags_NoInputs = 786944
@@ -1342,6 +1934,7 @@ end
     ImGuiWindowFlags_Popup = 67108864
     ImGuiWindowFlags_Modal = 134217728
     ImGuiWindowFlags_ChildMenu = 268435456
+    ImGuiWindowFlags_DockNodeHost = 536870912
 end
 
 @cenum ImGuiInputTextFlags_::UInt32 begin
@@ -1450,6 +2043,85 @@ end
     ImGuiTabItemFlags_Trailing = 128
 end
 
+@cenum ImGuiTableFlags_::UInt32 begin
+    ImGuiTableFlags_None = 0
+    ImGuiTableFlags_Resizable = 1
+    ImGuiTableFlags_Reorderable = 2
+    ImGuiTableFlags_Hideable = 4
+    ImGuiTableFlags_Sortable = 8
+    ImGuiTableFlags_NoSavedSettings = 16
+    ImGuiTableFlags_ContextMenuInBody = 32
+    ImGuiTableFlags_RowBg = 64
+    ImGuiTableFlags_BordersInnerH = 128
+    ImGuiTableFlags_BordersOuterH = 256
+    ImGuiTableFlags_BordersInnerV = 512
+    ImGuiTableFlags_BordersOuterV = 1024
+    ImGuiTableFlags_BordersH = 384
+    ImGuiTableFlags_BordersV = 1536
+    ImGuiTableFlags_BordersInner = 640
+    ImGuiTableFlags_BordersOuter = 1280
+    ImGuiTableFlags_Borders = 1920
+    ImGuiTableFlags_NoBordersInBody = 2048
+    ImGuiTableFlags_NoBordersInBodyUntilResize = 4096
+    ImGuiTableFlags_SizingFixedFit = 8192
+    ImGuiTableFlags_SizingFixedSame = 16384
+    ImGuiTableFlags_SizingStretchProp = 24576
+    ImGuiTableFlags_SizingStretchSame = 32768
+    ImGuiTableFlags_NoHostExtendX = 65536
+    ImGuiTableFlags_NoHostExtendY = 131072
+    ImGuiTableFlags_NoKeepColumnsVisible = 262144
+    ImGuiTableFlags_PreciseWidths = 524288
+    ImGuiTableFlags_NoClip = 1048576
+    ImGuiTableFlags_PadOuterX = 2097152
+    ImGuiTableFlags_NoPadOuterX = 4194304
+    ImGuiTableFlags_NoPadInnerX = 8388608
+    ImGuiTableFlags_ScrollX = 16777216
+    ImGuiTableFlags_ScrollY = 33554432
+    ImGuiTableFlags_SortMulti = 67108864
+    ImGuiTableFlags_SortTristate = 134217728
+    ImGuiTableFlags_SizingMask_ = 57344
+end
+
+@cenum ImGuiTableColumnFlags_::UInt32 begin
+    ImGuiTableColumnFlags_None = 0
+    ImGuiTableColumnFlags_DefaultHide = 1
+    ImGuiTableColumnFlags_DefaultSort = 2
+    ImGuiTableColumnFlags_WidthStretch = 4
+    ImGuiTableColumnFlags_WidthFixed = 8
+    ImGuiTableColumnFlags_NoResize = 16
+    ImGuiTableColumnFlags_NoReorder = 32
+    ImGuiTableColumnFlags_NoHide = 64
+    ImGuiTableColumnFlags_NoClip = 128
+    ImGuiTableColumnFlags_NoSort = 256
+    ImGuiTableColumnFlags_NoSortAscending = 512
+    ImGuiTableColumnFlags_NoSortDescending = 1024
+    ImGuiTableColumnFlags_NoHeaderWidth = 2048
+    ImGuiTableColumnFlags_PreferSortAscending = 4096
+    ImGuiTableColumnFlags_PreferSortDescending = 8192
+    ImGuiTableColumnFlags_IndentEnable = 16384
+    ImGuiTableColumnFlags_IndentDisable = 32768
+    ImGuiTableColumnFlags_IsEnabled = 1048576
+    ImGuiTableColumnFlags_IsVisible = 2097152
+    ImGuiTableColumnFlags_IsSorted = 4194304
+    ImGuiTableColumnFlags_IsHovered = 8388608
+    ImGuiTableColumnFlags_WidthMask_ = 12
+    ImGuiTableColumnFlags_IndentMask_ = 49152
+    ImGuiTableColumnFlags_StatusMask_ = 15728640
+    ImGuiTableColumnFlags_NoDirectResize_ = 1073741824
+end
+
+@cenum ImGuiTableRowFlags_::UInt32 begin
+    ImGuiTableRowFlags_None = 0
+    ImGuiTableRowFlags_Headers = 1
+end
+
+@cenum ImGuiTableBgTarget_::UInt32 begin
+    ImGuiTableBgTarget_None = 0
+    ImGuiTableBgTarget_RowBg0 = 1
+    ImGuiTableBgTarget_RowBg1 = 2
+    ImGuiTableBgTarget_CellBg = 3
+end
+
 @cenum ImGuiFocusedFlags_::UInt32 begin
     ImGuiFocusedFlags_None = 0
     ImGuiFocusedFlags_ChildWindows = 1
@@ -1469,6 +2141,16 @@ end
     ImGuiHoveredFlags_AllowWhenDisabled = 128
     ImGuiHoveredFlags_RectOnly = 104
     ImGuiHoveredFlags_RootAndChildWindows = 3
+end
+
+@cenum ImGuiDockNodeFlags_::UInt32 begin
+    ImGuiDockNodeFlags_None = 0
+    ImGuiDockNodeFlags_KeepAliveOnly = 1
+    ImGuiDockNodeFlags_NoDockingInCentralNode = 4
+    ImGuiDockNodeFlags_PassthruCentralNode = 8
+    ImGuiDockNodeFlags_NoSplit = 16
+    ImGuiDockNodeFlags_NoResize = 32
+    ImGuiDockNodeFlags_AutoHideTabBar = 64
 end
 
 @cenum ImGuiDragDropFlags_::UInt32 begin
@@ -1506,6 +2188,12 @@ end
     ImGuiDir_Up = 2
     ImGuiDir_Down = 3
     ImGuiDir_COUNT = 4
+end
+
+@cenum ImGuiSortDirection_::UInt32 begin
+    ImGuiSortDirection_None = 0
+    ImGuiSortDirection_Ascending = 1
+    ImGuiSortDirection_Descending = 2
 end
 
 @cenum ImGuiKey_::UInt32 begin
@@ -1576,6 +2264,10 @@ end
     ImGuiConfigFlags_NavNoCaptureKeyboard = 8
     ImGuiConfigFlags_NoMouse = 16
     ImGuiConfigFlags_NoMouseCursorChange = 32
+    ImGuiConfigFlags_DockingEnable = 64
+    ImGuiConfigFlags_ViewportsEnable = 1024
+    ImGuiConfigFlags_DpiEnableScaleViewports = 16384
+    ImGuiConfigFlags_DpiEnableScaleFonts = 32768
     ImGuiConfigFlags_IsSRGB = 1048576
     ImGuiConfigFlags_IsTouchScreen = 2097152
 end
@@ -1586,6 +2278,9 @@ end
     ImGuiBackendFlags_HasMouseCursors = 2
     ImGuiBackendFlags_HasSetMousePos = 4
     ImGuiBackendFlags_RendererHasVtxOffset = 8
+    ImGuiBackendFlags_PlatformHasViewports = 1024
+    ImGuiBackendFlags_HasMouseHoveredViewport = 2048
+    ImGuiBackendFlags_RendererHasViewports = 4096
 end
 
 @cenum ImGuiCol_::UInt32 begin
@@ -1627,17 +2322,24 @@ end
     ImGuiCol_TabActive = 35
     ImGuiCol_TabUnfocused = 36
     ImGuiCol_TabUnfocusedActive = 37
-    ImGuiCol_PlotLines = 38
-    ImGuiCol_PlotLinesHovered = 39
-    ImGuiCol_PlotHistogram = 40
-    ImGuiCol_PlotHistogramHovered = 41
-    ImGuiCol_TextSelectedBg = 42
-    ImGuiCol_DragDropTarget = 43
-    ImGuiCol_NavHighlight = 44
-    ImGuiCol_NavWindowingHighlight = 45
-    ImGuiCol_NavWindowingDimBg = 46
-    ImGuiCol_ModalWindowDimBg = 47
-    ImGuiCol_COUNT = 48
+    ImGuiCol_DockingPreview = 38
+    ImGuiCol_DockingEmptyBg = 39
+    ImGuiCol_PlotLines = 40
+    ImGuiCol_PlotLinesHovered = 41
+    ImGuiCol_PlotHistogram = 42
+    ImGuiCol_PlotHistogramHovered = 43
+    ImGuiCol_TableHeaderBg = 44
+    ImGuiCol_TableBorderStrong = 45
+    ImGuiCol_TableBorderLight = 46
+    ImGuiCol_TableRowBg = 47
+    ImGuiCol_TableRowBgAlt = 48
+    ImGuiCol_TextSelectedBg = 49
+    ImGuiCol_DragDropTarget = 50
+    ImGuiCol_NavHighlight = 51
+    ImGuiCol_NavWindowingHighlight = 52
+    ImGuiCol_NavWindowingDimBg = 53
+    ImGuiCol_ModalWindowDimBg = 54
+    ImGuiCol_COUNT = 55
 end
 
 @cenum ImGuiStyleVar_::UInt32 begin
@@ -1657,14 +2359,15 @@ end
     ImGuiStyleVar_ItemSpacing = 13
     ImGuiStyleVar_ItemInnerSpacing = 14
     ImGuiStyleVar_IndentSpacing = 15
-    ImGuiStyleVar_ScrollbarSize = 16
-    ImGuiStyleVar_ScrollbarRounding = 17
-    ImGuiStyleVar_GrabMinSize = 18
-    ImGuiStyleVar_GrabRounding = 19
-    ImGuiStyleVar_TabRounding = 20
-    ImGuiStyleVar_ButtonTextAlign = 21
-    ImGuiStyleVar_SelectableTextAlign = 22
-    ImGuiStyleVar_COUNT = 23
+    ImGuiStyleVar_CellPadding = 16
+    ImGuiStyleVar_ScrollbarSize = 17
+    ImGuiStyleVar_ScrollbarRounding = 18
+    ImGuiStyleVar_GrabMinSize = 19
+    ImGuiStyleVar_GrabRounding = 20
+    ImGuiStyleVar_TabRounding = 21
+    ImGuiStyleVar_ButtonTextAlign = 22
+    ImGuiStyleVar_SelectableTextAlign = 23
+    ImGuiStyleVar_COUNT = 24
 end
 
 @cenum ImGuiButtonFlags_::UInt32 begin
@@ -1774,6 +2477,23 @@ end
     ImFontAtlasFlags_NoBakedLines = 4
 end
 
+@cenum ImGuiViewportFlags_::UInt32 begin
+    ImGuiViewportFlags_None = 0
+    ImGuiViewportFlags_IsPlatformWindow = 1
+    ImGuiViewportFlags_IsPlatformMonitor = 2
+    ImGuiViewportFlags_OwnedByApp = 4
+    ImGuiViewportFlags_NoDecoration = 8
+    ImGuiViewportFlags_NoTaskBarIcon = 16
+    ImGuiViewportFlags_NoFocusOnAppearing = 32
+    ImGuiViewportFlags_NoFocusOnClick = 64
+    ImGuiViewportFlags_NoInputs = 128
+    ImGuiViewportFlags_NoRendererClear = 256
+    ImGuiViewportFlags_TopMost = 512
+    ImGuiViewportFlags_Minimized = 1024
+    ImGuiViewportFlags_NoAutoMerge = 2048
+    ImGuiViewportFlags_CanHostOtherWindows = 4096
+end
+
 @cenum ImGuiItemFlags_::UInt32 begin
     ImGuiItemFlags_None = 0
     ImGuiItemFlags_NoTabStop = 1
@@ -1860,12 +2580,6 @@ end
     ImGuiLayoutType_Vertical = 1
 end
 
-@cenum ImGuiAxis::Int32 begin
-    ImGuiAxis_None = -1
-    ImGuiAxis_X = 0
-    ImGuiAxis_Y = 1
-end
-
 @cenum ImGuiPlotType::UInt32 begin
     ImGuiPlotType_Lines = 0
     ImGuiPlotType_Histogram = 1
@@ -1928,6 +2642,9 @@ end
     ImGuiNextWindowDataFlags_HasFocus = 32
     ImGuiNextWindowDataFlags_HasBgAlpha = 64
     ImGuiNextWindowDataFlags_HasScroll = 128
+    ImGuiNextWindowDataFlags_HasViewport = 256
+    ImGuiNextWindowDataFlags_HasDock = 512
+    ImGuiNextWindowDataFlags_HasWindowClass = 1024
 end
 
 @cenum ImGuiNextItemDataFlags_::UInt32 begin
@@ -1936,13 +2653,50 @@ end
     ImGuiNextItemDataFlags_HasOpen = 2
 end
 
-@cenum ImGuiColumnsFlags_::UInt32 begin
-    ImGuiColumnsFlags_None = 0
-    ImGuiColumnsFlags_NoBorder = 1
-    ImGuiColumnsFlags_NoResize = 2
-    ImGuiColumnsFlags_NoPreserveWidths = 4
-    ImGuiColumnsFlags_NoForceWithinWindow = 8
-    ImGuiColumnsFlags_GrowParentContentsSize = 16
+@cenum ImGuiOldColumnFlags_::UInt32 begin
+    ImGuiOldColumnFlags_None = 0
+    ImGuiOldColumnFlags_NoBorder = 1
+    ImGuiOldColumnFlags_NoResize = 2
+    ImGuiOldColumnFlags_NoPreserveWidths = 4
+    ImGuiOldColumnFlags_NoForceWithinWindow = 8
+    ImGuiOldColumnFlags_GrowParentContentsSize = 16
+end
+
+@cenum ImGuiDockNodeFlagsPrivate_::Int32 begin
+    ImGuiDockNodeFlags_DockSpace = 1024
+    ImGuiDockNodeFlags_CentralNode = 2048
+    ImGuiDockNodeFlags_NoTabBar = 4096
+    ImGuiDockNodeFlags_HiddenTabBar = 8192
+    ImGuiDockNodeFlags_NoWindowMenuButton = 16384
+    ImGuiDockNodeFlags_NoCloseButton = 32768
+    ImGuiDockNodeFlags_NoDocking = 65536
+    ImGuiDockNodeFlags_NoDockingSplitMe = 131072
+    ImGuiDockNodeFlags_NoDockingSplitOther = 262144
+    ImGuiDockNodeFlags_NoDockingOverMe = 524288
+    ImGuiDockNodeFlags_NoDockingOverOther = 1048576
+    ImGuiDockNodeFlags_NoResizeX = 2097152
+    ImGuiDockNodeFlags_NoResizeY = 4194304
+    ImGuiDockNodeFlags_SharedFlagsInheritMask_ = -1
+    ImGuiDockNodeFlags_NoResizeFlagsMask_ = 6291488
+    ImGuiDockNodeFlags_LocalFlagsMask_ = 6421616
+    ImGuiDockNodeFlags_LocalFlagsTransferMask_ = 6420592
+    ImGuiDockNodeFlags_SavedFlagsMask_ = 6421536
+end
+
+@cenum ImGuiDataAuthority_::UInt32 begin
+    ImGuiDataAuthority_Auto = 0
+    ImGuiDataAuthority_DockNode = 1
+    ImGuiDataAuthority_Window = 2
+end
+
+@cenum ImGuiWindowDockStyleCol::UInt32 begin
+    ImGuiWindowDockStyleCol_Text = 0
+    ImGuiWindowDockStyleCol_Tab = 1
+    ImGuiWindowDockStyleCol_TabHovered = 2
+    ImGuiWindowDockStyleCol_TabActive = 3
+    ImGuiWindowDockStyleCol_TabUnfocused = 4
+    ImGuiWindowDockStyleCol_TabUnfocusedActive = 5
+    ImGuiWindowDockStyleCol_COUNT = 6
 end
 
 @cenum ImGuiTabBarFlagsPrivate_::UInt32 begin
@@ -1954,5 +2708,7 @@ end
 @cenum ImGuiTabItemFlagsPrivate_::UInt32 begin
     ImGuiTabItemFlags_NoCloseButton = 1048576
     ImGuiTabItemFlags_Button = 2097152
+    ImGuiTabItemFlags_Unsorted = 4194304
+    ImGuiTabItemFlags_Preview = 8388608
 end
 

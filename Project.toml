@@ -1,17 +1,18 @@
 name = "CImGui"
 uuid = "5d785b6c-b76f-510e-a07c-3070796c7e87"
 authors = ["Yupei Qi <qiyupei@gmail.com>"]
-version = "1.79.0"
+version = "1.81.0"
 
 [deps]
 CImGui_jll = "7dd61d3b-0da5-5c94-bbf9-a0296c6e3925"
 CSyntax = "ea656a56-6ca6-5dda-bba5-7b6963a5f74c"
+Clang = "40e3b903-d033-50b4-a0cc-940c62c95e31"
 GLFW = "f7f18e0c-5ee9-5ccd-a5bf-e8befd85ed98"
 Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 ModernGL = "66fc600b-dfda-50eb-8b99-91cfa97b1301"
 
 [compat]
-CImGui_jll = "~1.79.0"
+CImGui_jll = "~1.81.0"
 CSyntax = "0.4.0"
 GLFW = "3.2.0,3.3.0,3.4.0"
 ModernGL = "1.1.0"

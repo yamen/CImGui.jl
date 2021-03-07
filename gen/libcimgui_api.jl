@@ -70,12 +70,12 @@ function igShowDemoWindow(p_open)
     ccall((:igShowDemoWindow, libcimgui), Cvoid, (Ptr{Bool},), p_open)
 end
 
-function igShowAboutWindow(p_open)
-    ccall((:igShowAboutWindow, libcimgui), Cvoid, (Ptr{Bool},), p_open)
-end
-
 function igShowMetricsWindow(p_open)
     ccall((:igShowMetricsWindow, libcimgui), Cvoid, (Ptr{Bool},), p_open)
+end
+
+function igShowAboutWindow(p_open)
+    ccall((:igShowAboutWindow, libcimgui), Cvoid, (Ptr{Bool},), p_open)
 end
 
 function igShowStyleEditor(ref)
@@ -102,12 +102,12 @@ function igStyleColorsDark(dst)
     ccall((:igStyleColorsDark, libcimgui), Cvoid, (Ptr{ImGuiStyle},), dst)
 end
 
-function igStyleColorsClassic(dst)
-    ccall((:igStyleColorsClassic, libcimgui), Cvoid, (Ptr{ImGuiStyle},), dst)
-end
-
 function igStyleColorsLight(dst)
     ccall((:igStyleColorsLight, libcimgui), Cvoid, (Ptr{ImGuiStyle},), dst)
+end
+
+function igStyleColorsClassic(dst)
+    ccall((:igStyleColorsClassic, libcimgui), Cvoid, (Ptr{ImGuiStyle},), dst)
 end
 
 function igBegin(name, p_open, flags)
@@ -150,6 +150,10 @@ function igGetWindowDrawList()
     ccall((:igGetWindowDrawList, libcimgui), Ptr{ImDrawList}, ())
 end
 
+function igGetWindowDpiScale()
+    ccall((:igGetWindowDpiScale, libcimgui), Cfloat, ())
+end
+
 function igGetWindowPos(pOut)
     ccall((:igGetWindowPos, libcimgui), Cvoid, (Ptr{ImVec2},), pOut)
 end
@@ -164,6 +168,10 @@ end
 
 function igGetWindowHeight()
     ccall((:igGetWindowHeight, libcimgui), Cfloat, ())
+end
+
+function igGetWindowViewport()
+    ccall((:igGetWindowViewport, libcimgui), Ptr{ImGuiViewport}, ())
 end
 
 function igSetNextWindowPos(pos, cond, pivot)
@@ -192,6 +200,10 @@ end
 
 function igSetNextWindowBgAlpha(alpha)
     ccall((:igSetNextWindowBgAlpha, libcimgui), Cvoid, (Cfloat,), alpha)
+end
+
+function igSetNextWindowViewport(viewport_id)
+    ccall((:igSetNextWindowViewport, libcimgui), Cvoid, (ImGuiID,), viewport_id)
 end
 
 function igSetWindowPosVec2(pos, cond)
@@ -230,12 +242,12 @@ function igSetWindowFocusStr(name)
     ccall((:igSetWindowFocusStr, libcimgui), Cvoid, (Cstring,), name)
 end
 
-function igGetContentRegionMax(pOut)
-    ccall((:igGetContentRegionMax, libcimgui), Cvoid, (Ptr{ImVec2},), pOut)
-end
-
 function igGetContentRegionAvail(pOut)
     ccall((:igGetContentRegionAvail, libcimgui), Cvoid, (Ptr{ImVec2},), pOut)
+end
+
+function igGetContentRegionMax(pOut)
+    ccall((:igGetContentRegionMax, libcimgui), Cvoid, (Ptr{ImVec2},), pOut)
 end
 
 function igGetWindowContentRegionMin(pOut)
@@ -258,20 +270,20 @@ function igGetScrollY()
     ccall((:igGetScrollY, libcimgui), Cfloat, ())
 end
 
-function igGetScrollMaxX()
-    ccall((:igGetScrollMaxX, libcimgui), Cfloat, ())
-end
-
-function igGetScrollMaxY()
-    ccall((:igGetScrollMaxY, libcimgui), Cfloat, ())
-end
-
 function igSetScrollXFloat(scroll_x)
     ccall((:igSetScrollXFloat, libcimgui), Cvoid, (Cfloat,), scroll_x)
 end
 
 function igSetScrollYFloat(scroll_y)
     ccall((:igSetScrollYFloat, libcimgui), Cvoid, (Cfloat,), scroll_y)
+end
+
+function igGetScrollMaxX()
+    ccall((:igGetScrollMaxX, libcimgui), Cfloat, ())
+end
+
+function igGetScrollMaxY()
+    ccall((:igGetScrollMaxY, libcimgui), Cfloat, ())
 end
 
 function igSetScrollHereX(center_x_ratio)
@@ -322,32 +334,20 @@ function igPopStyleVar(count)
     ccall((:igPopStyleVar, libcimgui), Cvoid, (Cint,), count)
 end
 
-function igGetStyleColorVec4(idx)
-    ccall((:igGetStyleColorVec4, libcimgui), Ptr{ImVec4}, (ImGuiCol,), idx)
+function igPushAllowKeyboardFocus(allow_keyboard_focus)
+    ccall((:igPushAllowKeyboardFocus, libcimgui), Cvoid, (Bool,), allow_keyboard_focus)
 end
 
-function igGetFont()
-    ccall((:igGetFont, libcimgui), Ptr{ImFont}, ())
+function igPopAllowKeyboardFocus()
+    ccall((:igPopAllowKeyboardFocus, libcimgui), Cvoid, ())
 end
 
-function igGetFontSize()
-    ccall((:igGetFontSize, libcimgui), Cfloat, ())
+function igPushButtonRepeat(repeat)
+    ccall((:igPushButtonRepeat, libcimgui), Cvoid, (Bool,), repeat)
 end
 
-function igGetFontTexUvWhitePixel(pOut)
-    ccall((:igGetFontTexUvWhitePixel, libcimgui), Cvoid, (Ptr{ImVec2},), pOut)
-end
-
-function igGetColorU32Col(idx, alpha_mul)
-    ccall((:igGetColorU32Col, libcimgui), ImU32, (ImGuiCol, Cfloat), idx, alpha_mul)
-end
-
-function igGetColorU32Vec4(col)
-    ccall((:igGetColorU32Vec4, libcimgui), ImU32, (ImVec4,), col)
-end
-
-function igGetColorU32U32(col)
-    ccall((:igGetColorU32U32, libcimgui), ImU32, (ImU32,), col)
+function igPopButtonRepeat()
+    ccall((:igPopButtonRepeat, libcimgui), Cvoid, ())
 end
 
 function igPushItemWidth(item_width)
@@ -374,20 +374,32 @@ function igPopTextWrapPos()
     ccall((:igPopTextWrapPos, libcimgui), Cvoid, ())
 end
 
-function igPushAllowKeyboardFocus(allow_keyboard_focus)
-    ccall((:igPushAllowKeyboardFocus, libcimgui), Cvoid, (Bool,), allow_keyboard_focus)
+function igGetFont()
+    ccall((:igGetFont, libcimgui), Ptr{ImFont}, ())
 end
 
-function igPopAllowKeyboardFocus()
-    ccall((:igPopAllowKeyboardFocus, libcimgui), Cvoid, ())
+function igGetFontSize()
+    ccall((:igGetFontSize, libcimgui), Cfloat, ())
 end
 
-function igPushButtonRepeat(repeat)
-    ccall((:igPushButtonRepeat, libcimgui), Cvoid, (Bool,), repeat)
+function igGetFontTexUvWhitePixel(pOut)
+    ccall((:igGetFontTexUvWhitePixel, libcimgui), Cvoid, (Ptr{ImVec2},), pOut)
 end
 
-function igPopButtonRepeat()
-    ccall((:igPopButtonRepeat, libcimgui), Cvoid, ())
+function igGetColorU32Col(idx, alpha_mul)
+    ccall((:igGetColorU32Col, libcimgui), ImU32, (ImGuiCol, Cfloat), idx, alpha_mul)
+end
+
+function igGetColorU32Vec4(col)
+    ccall((:igGetColorU32Vec4, libcimgui), ImU32, (ImVec4,), col)
+end
+
+function igGetColorU32U32(col)
+    ccall((:igGetColorU32U32, libcimgui), ImU32, (ImU32,), col)
+end
+
+function igGetStyleColorVec4(idx)
+    ccall((:igGetStyleColorVec4, libcimgui), Ptr{ImVec4}, (ImGuiCol,), idx)
 end
 
 function igSeparator()
@@ -546,8 +558,12 @@ function igCheckbox(label, v)
     ccall((:igCheckbox, libcimgui), Bool, (Cstring, Ptr{Bool}), label, v)
 end
 
-function igCheckboxFlags(label, flags, flags_value)
-    ccall((:igCheckboxFlags, libcimgui), Bool, (Cstring, Ptr{Cuint}, Cuint), label, flags, flags_value)
+function igCheckboxFlagsIntPtr(label, flags, flags_value)
+    ccall((:igCheckboxFlagsIntPtr, libcimgui), Bool, (Cstring, Ptr{Cint}, Cint), label, flags, flags_value)
+end
+
+function igCheckboxFlagsUintPtr(label, flags, flags_value)
+    ccall((:igCheckboxFlagsUintPtr, libcimgui), Bool, (Cstring, Ptr{UInt32}, UInt32), label, flags, flags_value)
 end
 
 function igRadioButtonBool(label, active)
@@ -579,7 +595,7 @@ function igComboStr_arr(label, current_item, items, items_count, popup_max_heigh
 end
 
 function igComboStr(label, current_item, items_separated_by_zeros, popup_max_height_in_items)
-    ccall((:igComboStr, libcimgui), Bool, (Cstring, Ptr{Cint}, Ptr{UInt8}, Cint), label, current_item, items_separated_by_zeros, popup_max_height_in_items)
+    ccall((:igComboStr, libcimgui), Bool, (Cstring, Ptr{Cint}, Cstring, Cint), label, current_item, items_separated_by_zeros, popup_max_height_in_items)
 end
 
 function igComboFnBoolPtr(label, current_item, items_getter, data, items_count, popup_max_height_in_items)
@@ -691,15 +707,15 @@ function igVSliderScalar(label, size, data_type, p_data, p_min, p_max, format, f
 end
 
 function igInputText(label, buf, buf_size, flags, callback, user_data)
-    ccall((:igInputText, libcimgui), Bool, (Cstring, Ptr{UInt8}, Csize_t, ImGuiInputTextFlags, ImGuiInputTextCallback, Ptr{Cvoid}), label, buf, buf_size, flags, callback, user_data)
+    ccall((:igInputText, libcimgui), Bool, (Cstring, Cstring, Cint, ImGuiInputTextFlags, ImGuiInputTextCallback, Ptr{Cvoid}), label, buf, buf_size, flags, callback, user_data)
 end
 
 function igInputTextMultiline(label, buf, buf_size, size, flags, callback, user_data)
-    ccall((:igInputTextMultiline, libcimgui), Bool, (Cstring, Ptr{UInt8}, Csize_t, ImVec2, ImGuiInputTextFlags, ImGuiInputTextCallback, Ptr{Cvoid}), label, buf, buf_size, size, flags, callback, user_data)
+    ccall((:igInputTextMultiline, libcimgui), Bool, (Cstring, Cstring, Cint, ImVec2, ImGuiInputTextFlags, ImGuiInputTextCallback, Ptr{Cvoid}), label, buf, buf_size, size, flags, callback, user_data)
 end
 
 function igInputTextWithHint(label, hint, buf, buf_size, flags, callback, user_data)
-    ccall((:igInputTextWithHint, libcimgui), Bool, (Cstring, Ptr{UInt8}, Ptr{UInt8}, Csize_t, ImGuiInputTextFlags, ImGuiInputTextCallback, Ptr{Cvoid}), label, hint, buf, buf_size, flags, callback, user_data)
+    ccall((:igInputTextWithHint, libcimgui), Bool, (Cstring, Cstring, Cstring, Cint, ImGuiInputTextFlags, ImGuiInputTextCallback, Ptr{Cvoid}), label, hint, buf, buf_size, flags, callback, user_data)
 end
 
 function igInputFloat(label, v, step, step_fast, format, flags)
@@ -798,8 +814,8 @@ function igCollapsingHeaderTreeNodeFlags(label, flags)
     ccall((:igCollapsingHeaderTreeNodeFlags, libcimgui), Bool, (Cstring, ImGuiTreeNodeFlags), label, flags)
 end
 
-function igCollapsingHeaderBoolPtr(label, p_open, flags)
-    ccall((:igCollapsingHeaderBoolPtr, libcimgui), Bool, (Cstring, Ptr{Bool}, ImGuiTreeNodeFlags), label, p_open, flags)
+function igCollapsingHeaderBoolPtr(label, p_visible, flags)
+    ccall((:igCollapsingHeaderBoolPtr, libcimgui), Bool, (Cstring, Ptr{Bool}, ImGuiTreeNodeFlags), label, p_visible, flags)
 end
 
 function igSetNextItemOpen(is_open, cond)
@@ -814,24 +830,20 @@ function igSelectableBoolPtr(label, p_selected, flags, size)
     ccall((:igSelectableBoolPtr, libcimgui), Bool, (Cstring, Ptr{Bool}, ImGuiSelectableFlags, ImVec2), label, p_selected, flags, size)
 end
 
+function igBeginListBox(label, size)
+    ccall((:igBeginListBox, libcimgui), Bool, (Cstring, ImVec2), label, size)
+end
+
+function igEndListBox()
+    ccall((:igEndListBox, libcimgui), Cvoid, ())
+end
+
 function igListBoxStr_arr(label, current_item, items, items_count, height_in_items)
     ccall((:igListBoxStr_arr, libcimgui), Bool, (Cstring, Ptr{Cint}, Ptr{Cstring}, Cint, Cint), label, current_item, items, items_count, height_in_items)
 end
 
 function igListBoxFnBoolPtr(label, current_item, items_getter, data, items_count, height_in_items)
     ccall((:igListBoxFnBoolPtr, libcimgui), Bool, (Cstring, Ptr{Cint}, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Cint), label, current_item, items_getter, data, items_count, height_in_items)
-end
-
-function igListBoxHeaderVec2(label, size)
-    ccall((:igListBoxHeaderVec2, libcimgui), Bool, (Cstring, ImVec2), label, size)
-end
-
-function igListBoxHeaderInt(label, items_count, height_in_items)
-    ccall((:igListBoxHeaderInt, libcimgui), Bool, (Cstring, Cint, Cint), label, items_count, height_in_items)
-end
-
-function igListBoxFooter()
-    ccall((:igListBoxFooter, libcimgui), Cvoid, ())
 end
 
 function igPlotLinesFloatPtr(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_size, stride)
@@ -859,7 +871,7 @@ function igValueInt(prefix, v)
 end
 
 function igValueUint(prefix, v)
-    ccall((:igValueUint, libcimgui), Cvoid, (Cstring, Cuint), prefix, v)
+    ccall((:igValueUint, libcimgui), Cvoid, (Cstring, UInt32), prefix, v)
 end
 
 function igValueFloat(prefix, v, float_format)
@@ -946,6 +958,70 @@ function igIsPopupOpenStr(str_id, flags)
     ccall((:igIsPopupOpenStr, libcimgui), Bool, (Cstring, ImGuiPopupFlags), str_id, flags)
 end
 
+function igBeginTable(str_id, column, flags, outer_size, inner_width)
+    ccall((:igBeginTable, libcimgui), Bool, (Cstring, Cint, ImGuiTableFlags, ImVec2, Cfloat), str_id, column, flags, outer_size, inner_width)
+end
+
+function igEndTable()
+    ccall((:igEndTable, libcimgui), Cvoid, ())
+end
+
+function igTableNextRow(row_flags, min_row_height)
+    ccall((:igTableNextRow, libcimgui), Cvoid, (ImGuiTableRowFlags, Cfloat), row_flags, min_row_height)
+end
+
+function igTableNextColumn()
+    ccall((:igTableNextColumn, libcimgui), Bool, ())
+end
+
+function igTableSetColumnIndex(column_n)
+    ccall((:igTableSetColumnIndex, libcimgui), Bool, (Cint,), column_n)
+end
+
+function igTableSetupColumn(label, flags, init_width_or_weight, user_id)
+    ccall((:igTableSetupColumn, libcimgui), Cvoid, (Cstring, ImGuiTableColumnFlags, Cfloat, ImU32), label, flags, init_width_or_weight, user_id)
+end
+
+function igTableSetupScrollFreeze(cols, rows)
+    ccall((:igTableSetupScrollFreeze, libcimgui), Cvoid, (Cint, Cint), cols, rows)
+end
+
+function igTableHeadersRow()
+    ccall((:igTableHeadersRow, libcimgui), Cvoid, ())
+end
+
+function igTableHeader(label)
+    ccall((:igTableHeader, libcimgui), Cvoid, (Cstring,), label)
+end
+
+function igTableGetSortSpecs()
+    ccall((:igTableGetSortSpecs, libcimgui), Ptr{ImGuiTableSortSpecs}, ())
+end
+
+function igTableGetColumnCount()
+    ccall((:igTableGetColumnCount, libcimgui), Cint, ())
+end
+
+function igTableGetColumnIndex()
+    ccall((:igTableGetColumnIndex, libcimgui), Cint, ())
+end
+
+function igTableGetRowIndex()
+    ccall((:igTableGetRowIndex, libcimgui), Cint, ())
+end
+
+function igTableGetColumnNameInt(column_n)
+    ccall((:igTableGetColumnNameInt, libcimgui), Cstring, (Cint,), column_n)
+end
+
+function igTableGetColumnFlags(column_n)
+    ccall((:igTableGetColumnFlags, libcimgui), ImGuiTableColumnFlags, (Cint,), column_n)
+end
+
+function igTableSetBgColor(target, color, column_n)
+    ccall((:igTableSetBgColor, libcimgui), Cvoid, (ImGuiTableBgTarget, ImU32, Cint), target, color, column_n)
+end
+
 function igColumns(count, id, border)
     ccall((:igColumns, libcimgui), Cvoid, (Cint, Cstring, Bool), count, id, border)
 end
@@ -1002,6 +1078,30 @@ function igSetTabItemClosed(tab_or_docked_window_label)
     ccall((:igSetTabItemClosed, libcimgui), Cvoid, (Cstring,), tab_or_docked_window_label)
 end
 
+function igDockSpace(id, size, flags, window_class)
+    ccall((:igDockSpace, libcimgui), Cvoid, (ImGuiID, ImVec2, ImGuiDockNodeFlags, Ptr{ImGuiWindowClass}), id, size, flags, window_class)
+end
+
+function igDockSpaceOverViewport(viewport, flags, window_class)
+    ccall((:igDockSpaceOverViewport, libcimgui), ImGuiID, (Ptr{ImGuiViewport}, ImGuiDockNodeFlags, Ptr{ImGuiWindowClass}), viewport, flags, window_class)
+end
+
+function igSetNextWindowDockID(dock_id, cond)
+    ccall((:igSetNextWindowDockID, libcimgui), Cvoid, (ImGuiID, ImGuiCond), dock_id, cond)
+end
+
+function igSetNextWindowClass(window_class)
+    ccall((:igSetNextWindowClass, libcimgui), Cvoid, (Ptr{ImGuiWindowClass},), window_class)
+end
+
+function igGetWindowDockID()
+    ccall((:igGetWindowDockID, libcimgui), ImGuiID, ())
+end
+
+function igIsWindowDocked()
+    ccall((:igIsWindowDocked, libcimgui), Bool, ())
+end
+
 function igLogToTTY(auto_open_depth)
     ccall((:igLogToTTY, libcimgui), Cvoid, (Cint,), auto_open_depth)
 end
@@ -1027,7 +1127,7 @@ function igBeginDragDropSource(flags)
 end
 
 function igSetDragDropPayload(type, data, sz, cond)
-    ccall((:igSetDragDropPayload, libcimgui), Bool, (Cstring, Ptr{Cvoid}, Csize_t, ImGuiCond), type, data, sz, cond)
+    ccall((:igSetDragDropPayload, libcimgui), Bool, (Cstring, Ptr{Cvoid}, Cint, ImGuiCond), type, data, sz, cond)
 end
 
 function igEndDragDropSource()
@@ -1134,6 +1234,10 @@ function igSetItemAllowOverlap()
     ccall((:igSetItemAllowOverlap, libcimgui), Cvoid, ())
 end
 
+function igGetMainViewport()
+    ccall((:igGetMainViewport, libcimgui), Ptr{ImGuiViewport}, ())
+end
+
 function igIsRectVisibleNil(size)
     ccall((:igIsRectVisibleNil, libcimgui), Bool, (ImVec2,), size)
 end
@@ -1150,12 +1254,20 @@ function igGetFrameCount()
     ccall((:igGetFrameCount, libcimgui), Cint, ())
 end
 
-function igGetBackgroundDrawList()
-    ccall((:igGetBackgroundDrawList, libcimgui), Ptr{ImDrawList}, ())
+function igGetBackgroundDrawListNil()
+    ccall((:igGetBackgroundDrawListNil, libcimgui), Ptr{ImDrawList}, ())
 end
 
 function igGetForegroundDrawListNil()
     ccall((:igGetForegroundDrawListNil, libcimgui), Ptr{ImDrawList}, ())
+end
+
+function igGetBackgroundDrawListViewportPtr(viewport)
+    ccall((:igGetBackgroundDrawListViewportPtr, libcimgui), Ptr{ImDrawList}, (Ptr{ImGuiViewport},), viewport)
+end
+
+function igGetForegroundDrawListViewportPtr(viewport)
+    ccall((:igGetForegroundDrawListViewportPtr, libcimgui), Ptr{ImDrawList}, (Ptr{ImGuiViewport},), viewport)
 end
 
 function igGetDrawListSharedData()
@@ -1303,7 +1415,7 @@ function igLoadIniSettingsFromDisk(ini_filename)
 end
 
 function igLoadIniSettingsFromMemory(ini_data, ini_size)
-    ccall((:igLoadIniSettingsFromMemory, libcimgui), Cvoid, (Cstring, Csize_t), ini_data, ini_size)
+    ccall((:igLoadIniSettingsFromMemory, libcimgui), Cvoid, (Cstring, Cint), ini_data, ini_size)
 end
 
 function igSaveIniSettingsToDisk(ini_filename)
@@ -1311,11 +1423,11 @@ function igSaveIniSettingsToDisk(ini_filename)
 end
 
 function igSaveIniSettingsToMemory(out_ini_size)
-    ccall((:igSaveIniSettingsToMemory, libcimgui), Cstring, (Ptr{Csize_t},), out_ini_size)
+    ccall((:igSaveIniSettingsToMemory, libcimgui), Cstring, (Ptr{Cint},), out_ini_size)
 end
 
 function igDebugCheckVersionAndDataLayout(version_str, sz_io, sz_style, sz_vec2, sz_vec4, sz_drawvert, sz_drawidx)
-    ccall((:igDebugCheckVersionAndDataLayout, libcimgui), Bool, (Cstring, Csize_t, Csize_t, Csize_t, Csize_t, Csize_t, Csize_t), version_str, sz_io, sz_style, sz_vec2, sz_vec4, sz_drawvert, sz_drawidx)
+    ccall((:igDebugCheckVersionAndDataLayout, libcimgui), Bool, (Cstring, Cint, Cint, Cint, Cint, Cint, Cint), version_str, sz_io, sz_style, sz_vec2, sz_vec4, sz_drawvert, sz_drawidx)
 end
 
 function igSetAllocatorFunctions(alloc_func, free_func, user_data)
@@ -1323,11 +1435,35 @@ function igSetAllocatorFunctions(alloc_func, free_func, user_data)
 end
 
 function igMemAlloc(size)
-    ccall((:igMemAlloc, libcimgui), Ptr{Cvoid}, (Csize_t,), size)
+    ccall((:igMemAlloc, libcimgui), Ptr{Cvoid}, (Cint,), size)
 end
 
 function igMemFree(ptr)
     ccall((:igMemFree, libcimgui), Cvoid, (Ptr{Cvoid},), ptr)
+end
+
+function igGetPlatformIO()
+    ccall((:igGetPlatformIO, libcimgui), Ptr{ImGuiPlatformIO}, ())
+end
+
+function igUpdatePlatformWindows()
+    ccall((:igUpdatePlatformWindows, libcimgui), Cvoid, ())
+end
+
+function igRenderPlatformWindowsDefault(platform_render_arg, renderer_render_arg)
+    ccall((:igRenderPlatformWindowsDefault, libcimgui), Cvoid, (Ptr{Cvoid}, Ptr{Cvoid}), platform_render_arg, renderer_render_arg)
+end
+
+function igDestroyPlatformWindows()
+    ccall((:igDestroyPlatformWindows, libcimgui), Cvoid, ())
+end
+
+function igFindViewportByID(id)
+    ccall((:igFindViewportByID, libcimgui), Ptr{ImGuiViewport}, (ImGuiID,), id)
+end
+
+function igFindViewportByPlatformHandle(platform_handle)
+    ccall((:igFindViewportByPlatformHandle, libcimgui), Ptr{ImGuiViewport}, (Ptr{Cvoid},), platform_handle)
 end
 
 function ImGuiStyle_ImGuiStyle()
@@ -1343,7 +1479,7 @@ function ImGuiStyle_ScaleAllSizes(self, scale_factor)
 end
 
 function ImGuiIO_AddInputCharacter(self, c)
-    ccall((:ImGuiIO_AddInputCharacter, libcimgui), Cvoid, (Ptr{ImGuiIO}, Cuint), self, c)
+    ccall((:ImGuiIO_AddInputCharacter, libcimgui), Cvoid, (Ptr{ImGuiIO}, UInt32), self, c)
 end
 
 function ImGuiIO_AddInputCharacterUTF16(self, c)
@@ -1394,6 +1530,14 @@ function ImGuiInputTextCallbackData_HasSelection(self)
     ccall((:ImGuiInputTextCallbackData_HasSelection, libcimgui), Bool, (Ptr{ImGuiInputTextCallbackData},), self)
 end
 
+function ImGuiWindowClass_ImGuiWindowClass()
+    ccall((:ImGuiWindowClass_ImGuiWindowClass, libcimgui), Ptr{ImGuiWindowClass}, ())
+end
+
+function ImGuiWindowClass_destroy(self)
+    ccall((:ImGuiWindowClass_destroy, libcimgui), Cvoid, (Ptr{ImGuiWindowClass},), self)
+end
+
 function ImGuiPayload_ImGuiPayload()
     ccall((:ImGuiPayload_ImGuiPayload, libcimgui), Ptr{ImGuiPayload}, ())
 end
@@ -1416,6 +1560,22 @@ end
 
 function ImGuiPayload_IsDelivery(self)
     ccall((:ImGuiPayload_IsDelivery, libcimgui), Bool, (Ptr{ImGuiPayload},), self)
+end
+
+function ImGuiTableColumnSortSpecs_ImGuiTableColumnSortSpecs()
+    ccall((:ImGuiTableColumnSortSpecs_ImGuiTableColumnSortSpecs, libcimgui), Ptr{ImGuiTableColumnSortSpecs}, ())
+end
+
+function ImGuiTableColumnSortSpecs_destroy(self)
+    ccall((:ImGuiTableColumnSortSpecs_destroy, libcimgui), Cvoid, (Ptr{ImGuiTableColumnSortSpecs},), self)
+end
+
+function ImGuiTableSortSpecs_ImGuiTableSortSpecs()
+    ccall((:ImGuiTableSortSpecs_ImGuiTableSortSpecs, libcimgui), Ptr{ImGuiTableSortSpecs}, ())
+end
+
+function ImGuiTableSortSpecs_destroy(self)
+    ccall((:ImGuiTableSortSpecs_destroy, libcimgui), Cvoid, (Ptr{ImGuiTableSortSpecs},), self)
 end
 
 function ImGuiOnceUponAFrame_ImGuiOnceUponAFrame()
@@ -1471,7 +1631,7 @@ function ImGuiTextRange_empty(self)
 end
 
 function ImGuiTextRange_split(self, separator, out)
-    ccall((:ImGuiTextRange_split, libcimgui), Cvoid, (Ptr{ImGuiTextRange}, Cchar, Ptr{ImVector_ImGuiTextRange}), self, separator, out)
+    ccall((:ImGuiTextRange_split, libcimgui), Cvoid, (Ptr{ImGuiTextRange}, UInt8, Ptr{ImVector_ImGuiTextRange}), self, separator, out)
 end
 
 function ImGuiTextBuffer_ImGuiTextBuffer()
@@ -1778,8 +1938,12 @@ function ImDrawList_AddConvexPolyFilled(self, points, num_points, col)
     ccall((:ImDrawList_AddConvexPolyFilled, libcimgui), Cvoid, (Ptr{ImDrawList}, Ptr{ImVec2}, Cint, ImU32), self, points, num_points, col)
 end
 
-function ImDrawList_AddBezierCurve(self, p1, p2, p3, p4, col, thickness, num_segments)
-    ccall((:ImDrawList_AddBezierCurve, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImVec2, ImVec2, ImVec2, ImU32, Cfloat, Cint), self, p1, p2, p3, p4, col, thickness, num_segments)
+function ImDrawList_AddBezierCubic(self, p1, p2, p3, p4, col, thickness, num_segments)
+    ccall((:ImDrawList_AddBezierCubic, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImVec2, ImVec2, ImVec2, ImU32, Cfloat, Cint), self, p1, p2, p3, p4, col, thickness, num_segments)
+end
+
+function ImDrawList_AddBezierQuadratic(self, p1, p2, p3, col, thickness, num_segments)
+    ccall((:ImDrawList_AddBezierQuadratic, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImVec2, ImVec2, ImU32, Cfloat, Cint), self, p1, p2, p3, col, thickness, num_segments)
 end
 
 function ImDrawList_AddImage(self, user_texture_id, p_min, p_max, uv_min, uv_max, col)
@@ -1822,8 +1986,12 @@ function ImDrawList_PathArcToFast(self, center, radius, a_min_of_12, a_max_of_12
     ccall((:ImDrawList_PathArcToFast, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, Cfloat, Cint, Cint), self, center, radius, a_min_of_12, a_max_of_12)
 end
 
-function ImDrawList_PathBezierCurveTo(self, p2, p3, p4, num_segments)
-    ccall((:ImDrawList_PathBezierCurveTo, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImVec2, ImVec2, Cint), self, p2, p3, p4, num_segments)
+function ImDrawList_PathBezierCubicCurveTo(self, p2, p3, p4, num_segments)
+    ccall((:ImDrawList_PathBezierCubicCurveTo, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImVec2, ImVec2, Cint), self, p2, p3, p4, num_segments)
+end
+
+function ImDrawList_PathBezierQuadraticCurveTo(self, p2, p3, num_segments)
+    ccall((:ImDrawList_PathBezierQuadraticCurveTo, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImVec2, Cint), self, p2, p3, num_segments)
 end
 
 function ImDrawList_PathRect(self, rect_min, rect_max, rounding, rounding_corners)
@@ -1951,11 +2119,11 @@ function ImFontGlyphRangesBuilder_Clear(self)
 end
 
 function ImFontGlyphRangesBuilder_GetBit(self, n)
-    ccall((:ImFontGlyphRangesBuilder_GetBit, libcimgui), Bool, (Ptr{ImFontGlyphRangesBuilder}, Csize_t), self, n)
+    ccall((:ImFontGlyphRangesBuilder_GetBit, libcimgui), Bool, (Ptr{ImFontGlyphRangesBuilder}, Cint), self, n)
 end
 
 function ImFontGlyphRangesBuilder_SetBit(self, n)
-    ccall((:ImFontGlyphRangesBuilder_SetBit, libcimgui), Cvoid, (Ptr{ImFontGlyphRangesBuilder}, Csize_t), self, n)
+    ccall((:ImFontGlyphRangesBuilder_SetBit, libcimgui), Cvoid, (Ptr{ImFontGlyphRangesBuilder}, Cint), self, n)
 end
 
 function ImFontGlyphRangesBuilder_AddChar(self, c)
@@ -2179,23 +2347,59 @@ function ImFont_SetFallbackChar(self, c)
 end
 
 function ImFont_IsGlyphRangeUnused(self, c_begin, c_last)
-    ccall((:ImFont_IsGlyphRangeUnused, libcimgui), Bool, (Ptr{ImFont}, Cuint, Cuint), self, c_begin, c_last)
+    ccall((:ImFont_IsGlyphRangeUnused, libcimgui), Bool, (Ptr{ImFont}, UInt32, UInt32), self, c_begin, c_last)
+end
+
+function ImGuiViewport_ImGuiViewport()
+    ccall((:ImGuiViewport_ImGuiViewport, libcimgui), Ptr{ImGuiViewport}, ())
+end
+
+function ImGuiViewport_destroy(self)
+    ccall((:ImGuiViewport_destroy, libcimgui), Cvoid, (Ptr{ImGuiViewport},), self)
+end
+
+function ImGuiViewport_GetCenter(pOut, self)
+    ccall((:ImGuiViewport_GetCenter, libcimgui), Cvoid, (Ptr{ImVec2}, Ptr{ImGuiViewport}), pOut, self)
+end
+
+function ImGuiViewport_GetWorkCenter(pOut, self)
+    ccall((:ImGuiViewport_GetWorkCenter, libcimgui), Cvoid, (Ptr{ImVec2}, Ptr{ImGuiViewport}), pOut, self)
+end
+
+function ImGuiPlatformIO_ImGuiPlatformIO()
+    ccall((:ImGuiPlatformIO_ImGuiPlatformIO, libcimgui), Ptr{ImGuiPlatformIO}, ())
+end
+
+function ImGuiPlatformIO_destroy(self)
+    ccall((:ImGuiPlatformIO_destroy, libcimgui), Cvoid, (Ptr{ImGuiPlatformIO},), self)
+end
+
+function ImGuiPlatformMonitor_ImGuiPlatformMonitor()
+    ccall((:ImGuiPlatformMonitor_ImGuiPlatformMonitor, libcimgui), Ptr{ImGuiPlatformMonitor}, ())
+end
+
+function ImGuiPlatformMonitor_destroy(self)
+    ccall((:ImGuiPlatformMonitor_destroy, libcimgui), Cvoid, (Ptr{ImGuiPlatformMonitor},), self)
 end
 
 function igImHashData(data, data_size, seed)
-    ccall((:igImHashData, libcimgui), ImU32, (Ptr{Cvoid}, Csize_t, ImU32), data, data_size, seed)
+    ccall((:igImHashData, libcimgui), ImGuiID, (Ptr{Cvoid}, Cint, ImU32), data, data_size, seed)
 end
 
 function igImHashStr(data, data_size, seed)
-    ccall((:igImHashStr, libcimgui), ImU32, (Cstring, Csize_t, ImU32), data, data_size, seed)
+    ccall((:igImHashStr, libcimgui), ImGuiID, (Cstring, Cint, ImU32), data, data_size, seed)
 end
 
 function igImAlphaBlendColors(col_a, col_b)
     ccall((:igImAlphaBlendColors, libcimgui), ImU32, (ImU32, ImU32), col_a, col_b)
 end
 
-function igImIsPowerOfTwo(v)
-    ccall((:igImIsPowerOfTwo, libcimgui), Bool, (Cint,), v)
+function igImIsPowerOfTwoInt(v)
+    ccall((:igImIsPowerOfTwoInt, libcimgui), Bool, (Cint,), v)
+end
+
+function igImIsPowerOfTwoU64(v)
+    ccall((:igImIsPowerOfTwoU64, libcimgui), Bool, (ImU64,), v)
 end
 
 function igImUpperPowerOfTwo(v)
@@ -2207,11 +2411,11 @@ function igImStricmp(str1, str2)
 end
 
 function igImStrnicmp(str1, str2, count)
-    ccall((:igImStrnicmp, libcimgui), Cint, (Cstring, Cstring, Csize_t), str1, str2, count)
+    ccall((:igImStrnicmp, libcimgui), Cint, (Cstring, Cstring, Cint), str1, str2, count)
 end
 
 function igImStrncpy(dst, src, count)
-    ccall((:igImStrncpy, libcimgui), Cvoid, (Cstring, Cstring, Csize_t), dst, src, count)
+    ccall((:igImStrncpy, libcimgui), Cvoid, (Cstring, Cstring, Cint), dst, src, count)
 end
 
 function igImStrdup(str)
@@ -2219,11 +2423,11 @@ function igImStrdup(str)
 end
 
 function igImStrdupcpy(dst, p_dst_size, str)
-    ccall((:igImStrdupcpy, libcimgui), Cstring, (Cstring, Ptr{Csize_t}, Cstring), dst, p_dst_size, str)
+    ccall((:igImStrdupcpy, libcimgui), Cstring, (Cstring, Ptr{Cint}, Cstring), dst, p_dst_size, str)
 end
 
 function igImStrchrRange(str_begin, str_end, c)
-    ccall((:igImStrchrRange, libcimgui), Cstring, (Cstring, Cstring, Cchar), str_begin, str_end, c)
+    ccall((:igImStrchrRange, libcimgui), Cstring, (Cstring, Cstring, UInt8), str_begin, str_end, c)
 end
 
 function igImStrlenW(str)
@@ -2259,7 +2463,7 @@ function igImParseFormatFindEnd(format)
 end
 
 function igImParseFormatTrimDecorations(format, buf, buf_size)
-    ccall((:igImParseFormatTrimDecorations, libcimgui), Cstring, (Cstring, Cstring, Csize_t), format, buf, buf_size)
+    ccall((:igImParseFormatTrimDecorations, libcimgui), Cstring, (Cstring, Cstring, Cint), format, buf, buf_size)
 end
 
 function igImParseFormatPrecision(format, default_value)
@@ -2267,11 +2471,11 @@ function igImParseFormatPrecision(format, default_value)
 end
 
 function igImCharIsBlankA(c)
-    ccall((:igImCharIsBlankA, libcimgui), Bool, (Cchar,), c)
+    ccall((:igImCharIsBlankA, libcimgui), Bool, (UInt8,), c)
 end
 
 function igImCharIsBlankW(c)
-    ccall((:igImCharIsBlankW, libcimgui), Bool, (Cuint,), c)
+    ccall((:igImCharIsBlankW, libcimgui), Bool, (UInt32,), c)
 end
 
 function igImTextStrToUtf8(buf, buf_size, in_text, in_text_end)
@@ -2279,7 +2483,7 @@ function igImTextStrToUtf8(buf, buf_size, in_text, in_text_end)
 end
 
 function igImTextCharFromUtf8(out_char, in_text, in_text_end)
-    ccall((:igImTextCharFromUtf8, libcimgui), Cint, (Ptr{Cuint}, Cstring, Cstring), out_char, in_text, in_text_end)
+    ccall((:igImTextCharFromUtf8, libcimgui), Cint, (Ptr{UInt32}, Cstring, Cstring), out_char, in_text, in_text_end)
 end
 
 function igImTextStrFromUtf8(buf, buf_size, in_text, in_text_end, in_remaining)
@@ -2319,7 +2523,7 @@ function igImFileWrite(data, size, count, file)
 end
 
 function igImFileLoadToMemory(filename, mode, out_file_size, padding_bytes)
-    ccall((:igImFileLoadToMemory, libcimgui), Ptr{Cvoid}, (Cstring, Cstring, Ptr{Csize_t}, Cint), filename, mode, out_file_size, padding_bytes)
+    ccall((:igImFileLoadToMemory, libcimgui), Ptr{Cvoid}, (Cstring, Cstring, Ptr{Cint}, Cint), filename, mode, out_file_size, padding_bytes)
 end
 
 function igImPowFloat(x, y)
@@ -2422,16 +2626,20 @@ function igImMul(pOut, lhs, rhs)
     ccall((:igImMul, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2), pOut, lhs, rhs)
 end
 
-function igImBezierCalc(pOut, p1, p2, p3, p4, t)
-    ccall((:igImBezierCalc, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, ImVec2, Cfloat), pOut, p1, p2, p3, p4, t)
+function igImBezierCubicCalc(pOut, p1, p2, p3, p4, t)
+    ccall((:igImBezierCubicCalc, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, ImVec2, Cfloat), pOut, p1, p2, p3, p4, t)
 end
 
-function igImBezierClosestPoint(pOut, p1, p2, p3, p4, p, num_segments)
-    ccall((:igImBezierClosestPoint, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, ImVec2, ImVec2, Cint), pOut, p1, p2, p3, p4, p, num_segments)
+function igImBezierCubicClosestPoint(pOut, p1, p2, p3, p4, p, num_segments)
+    ccall((:igImBezierCubicClosestPoint, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, ImVec2, ImVec2, Cint), pOut, p1, p2, p3, p4, p, num_segments)
 end
 
-function igImBezierClosestPointCasteljau(pOut, p1, p2, p3, p4, p, tess_tol)
-    ccall((:igImBezierClosestPointCasteljau, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, ImVec2, ImVec2, Cfloat), pOut, p1, p2, p3, p4, p, tess_tol)
+function igImBezierCubicClosestPointCasteljau(pOut, p1, p2, p3, p4, p, tess_tol)
+    ccall((:igImBezierCubicClosestPointCasteljau, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, ImVec2, ImVec2, Cfloat), pOut, p1, p2, p3, p4, p, tess_tol)
+end
+
+function igImBezierQuadraticCalc(pOut, p1, p2, p3, t)
+    ccall((:igImBezierQuadraticCalc, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, Cfloat), pOut, p1, p2, p3, t)
 end
 
 function igImLineClosestPoint(pOut, a, b, p)
@@ -2479,7 +2687,7 @@ function ImVec2ih_destroy(self)
 end
 
 function ImVec2ih_ImVec2ihshort(_x, _y)
-    ccall((:ImVec2ih_ImVec2ihshort, libcimgui), Ptr{ImVec2ih}, (Cshort, Cshort), _x, _y)
+    ccall((:ImVec2ih_ImVec2ihshort, libcimgui), Ptr{ImVec2ih}, (Int16, Int16), _x, _y)
 end
 
 function ImVec2ih_ImVec2ihVec2(rhs)
@@ -2654,6 +2862,10 @@ function ImDrawDataBuilder_ClearFreeMemory(self)
     ccall((:ImDrawDataBuilder_ClearFreeMemory, libcimgui), Cvoid, (Ptr{ImDrawDataBuilder},), self)
 end
 
+function ImDrawDataBuilder_GetDrawListCount(self)
+    ccall((:ImDrawDataBuilder_GetDrawListCount, libcimgui), Cint, (Ptr{ImDrawDataBuilder},), self)
+end
+
 function ImDrawDataBuilder_FlattenIntoSingleLayer(self)
     ccall((:ImDrawDataBuilder_FlattenIntoSingleLayer, libcimgui), Cvoid, (Ptr{ImDrawDataBuilder},), self)
 end
@@ -2798,24 +3010,104 @@ function ImGuiPtrOrIndex_ImGuiPtrOrIndexInt(index)
     ccall((:ImGuiPtrOrIndex_ImGuiPtrOrIndexInt, libcimgui), Ptr{ImGuiPtrOrIndex}, (Cint,), index)
 end
 
-function ImGuiColumnData_ImGuiColumnData()
-    ccall((:ImGuiColumnData_ImGuiColumnData, libcimgui), Ptr{ImGuiColumnData}, ())
+function ImGuiOldColumnData_ImGuiOldColumnData()
+    ccall((:ImGuiOldColumnData_ImGuiOldColumnData, libcimgui), Ptr{ImGuiOldColumnData}, ())
 end
 
-function ImGuiColumnData_destroy(self)
-    ccall((:ImGuiColumnData_destroy, libcimgui), Cvoid, (Ptr{ImGuiColumnData},), self)
+function ImGuiOldColumnData_destroy(self)
+    ccall((:ImGuiOldColumnData_destroy, libcimgui), Cvoid, (Ptr{ImGuiOldColumnData},), self)
 end
 
-function ImGuiColumns_ImGuiColumns()
-    ccall((:ImGuiColumns_ImGuiColumns, libcimgui), Ptr{ImGuiColumns}, ())
+function ImGuiOldColumns_ImGuiOldColumns()
+    ccall((:ImGuiOldColumns_ImGuiOldColumns, libcimgui), Ptr{ImGuiOldColumns}, ())
 end
 
-function ImGuiColumns_destroy(self)
-    ccall((:ImGuiColumns_destroy, libcimgui), Cvoid, (Ptr{ImGuiColumns},), self)
+function ImGuiOldColumns_destroy(self)
+    ccall((:ImGuiOldColumns_destroy, libcimgui), Cvoid, (Ptr{ImGuiOldColumns},), self)
 end
 
-function ImGuiColumns_Clear(self)
-    ccall((:ImGuiColumns_Clear, libcimgui), Cvoid, (Ptr{ImGuiColumns},), self)
+function ImGuiDockNode_ImGuiDockNode(id)
+    ccall((:ImGuiDockNode_ImGuiDockNode, libcimgui), Ptr{ImGuiDockNode}, (ImGuiID,), id)
+end
+
+function ImGuiDockNode_destroy(self)
+    ccall((:ImGuiDockNode_destroy, libcimgui), Cvoid, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsRootNode(self)
+    ccall((:ImGuiDockNode_IsRootNode, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsDockSpace(self)
+    ccall((:ImGuiDockNode_IsDockSpace, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsFloatingNode(self)
+    ccall((:ImGuiDockNode_IsFloatingNode, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsCentralNode(self)
+    ccall((:ImGuiDockNode_IsCentralNode, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsHiddenTabBar(self)
+    ccall((:ImGuiDockNode_IsHiddenTabBar, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsNoTabBar(self)
+    ccall((:ImGuiDockNode_IsNoTabBar, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsSplitNode(self)
+    ccall((:ImGuiDockNode_IsSplitNode, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsLeafNode(self)
+    ccall((:ImGuiDockNode_IsLeafNode, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_IsEmpty(self)
+    ccall((:ImGuiDockNode_IsEmpty, libcimgui), Bool, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_GetMergedFlags(self)
+    ccall((:ImGuiDockNode_GetMergedFlags, libcimgui), ImGuiDockNodeFlags, (Ptr{ImGuiDockNode},), self)
+end
+
+function ImGuiDockNode_Rect(pOut, self)
+    ccall((:ImGuiDockNode_Rect, libcimgui), Cvoid, (Ptr{ImRect}, Ptr{ImGuiDockNode}), pOut, self)
+end
+
+function ImGuiDockContext_ImGuiDockContext()
+    ccall((:ImGuiDockContext_ImGuiDockContext, libcimgui), Ptr{ImGuiDockContext}, ())
+end
+
+function ImGuiDockContext_destroy(self)
+    ccall((:ImGuiDockContext_destroy, libcimgui), Cvoid, (Ptr{ImGuiDockContext},), self)
+end
+
+function ImGuiViewportP_ImGuiViewportP()
+    ccall((:ImGuiViewportP_ImGuiViewportP, libcimgui), Ptr{ImGuiViewportP}, ())
+end
+
+function ImGuiViewportP_destroy(self)
+    ccall((:ImGuiViewportP_destroy, libcimgui), Cvoid, (Ptr{ImGuiViewportP},), self)
+end
+
+function ImGuiViewportP_GetMainRect(pOut, self)
+    ccall((:ImGuiViewportP_GetMainRect, libcimgui), Cvoid, (Ptr{ImRect}, Ptr{ImGuiViewportP}), pOut, self)
+end
+
+function ImGuiViewportP_GetWorkRect(pOut, self)
+    ccall((:ImGuiViewportP_GetWorkRect, libcimgui), Cvoid, (Ptr{ImRect}, Ptr{ImGuiViewportP}), pOut, self)
+end
+
+function ImGuiViewportP_UpdateWorkRect(self)
+    ccall((:ImGuiViewportP_UpdateWorkRect, libcimgui), Cvoid, (Ptr{ImGuiViewportP},), self)
+end
+
+function ImGuiViewportP_ClearRequestFlags(self)
+    ccall((:ImGuiViewportP_ClearRequestFlags, libcimgui), Cvoid, (Ptr{ImGuiViewportP},), self)
 end
 
 function ImGuiWindowSettings_ImGuiWindowSettings()
@@ -2838,20 +3130,44 @@ function ImGuiSettingsHandler_destroy(self)
     ccall((:ImGuiSettingsHandler_destroy, libcimgui), Cvoid, (Ptr{ImGuiSettingsHandler},), self)
 end
 
+function ImGuiMetricsConfig_ImGuiMetricsConfig()
+    ccall((:ImGuiMetricsConfig_ImGuiMetricsConfig, libcimgui), Ptr{ImGuiMetricsConfig}, ())
+end
+
+function ImGuiMetricsConfig_destroy(self)
+    ccall((:ImGuiMetricsConfig_destroy, libcimgui), Cvoid, (Ptr{ImGuiMetricsConfig},), self)
+end
+
+function ImGuiStackSizes_ImGuiStackSizes()
+    ccall((:ImGuiStackSizes_ImGuiStackSizes, libcimgui), Ptr{ImGuiStackSizes}, ())
+end
+
+function ImGuiStackSizes_destroy(self)
+    ccall((:ImGuiStackSizes_destroy, libcimgui), Cvoid, (Ptr{ImGuiStackSizes},), self)
+end
+
+function ImGuiStackSizes_SetToCurrentState(self)
+    ccall((:ImGuiStackSizes_SetToCurrentState, libcimgui), Cvoid, (Ptr{ImGuiStackSizes},), self)
+end
+
+function ImGuiStackSizes_CompareWithCurrentState(self)
+    ccall((:ImGuiStackSizes_CompareWithCurrentState, libcimgui), Cvoid, (Ptr{ImGuiStackSizes},), self)
+end
+
+function ImGuiContextHook_ImGuiContextHook()
+    ccall((:ImGuiContextHook_ImGuiContextHook, libcimgui), Ptr{ImGuiContextHook}, ())
+end
+
+function ImGuiContextHook_destroy(self)
+    ccall((:ImGuiContextHook_destroy, libcimgui), Cvoid, (Ptr{ImGuiContextHook},), self)
+end
+
 function ImGuiContext_ImGuiContext(shared_font_atlas)
     ccall((:ImGuiContext_ImGuiContext, libcimgui), Ptr{ImGuiContext}, (Ptr{ImFontAtlas},), shared_font_atlas)
 end
 
 function ImGuiContext_destroy(self)
     ccall((:ImGuiContext_destroy, libcimgui), Cvoid, (Ptr{ImGuiContext},), self)
-end
-
-function ImGuiWindowTempData_ImGuiWindowTempData()
-    ccall((:ImGuiWindowTempData_ImGuiWindowTempData, libcimgui), Ptr{ImGuiWindowTempData}, ())
-end
-
-function ImGuiWindowTempData_destroy(self)
-    ccall((:ImGuiWindowTempData_destroy, libcimgui), Cvoid, (Ptr{ImGuiWindowTempData},), self)
 end
 
 function ImGuiWindow_ImGuiWindow(context, name)
@@ -2954,6 +3270,42 @@ function ImGuiTabBar_GetTabName(self, tab)
     ccall((:ImGuiTabBar_GetTabName, libcimgui), Cstring, (Ptr{ImGuiTabBar}, Ptr{ImGuiTabItem}), self, tab)
 end
 
+function ImGuiTableColumn_ImGuiTableColumn()
+    ccall((:ImGuiTableColumn_ImGuiTableColumn, libcimgui), Ptr{ImGuiTableColumn}, ())
+end
+
+function ImGuiTableColumn_destroy(self)
+    ccall((:ImGuiTableColumn_destroy, libcimgui), Cvoid, (Ptr{ImGuiTableColumn},), self)
+end
+
+function ImGuiTable_ImGuiTable()
+    ccall((:ImGuiTable_ImGuiTable, libcimgui), Ptr{ImGuiTable}, ())
+end
+
+function ImGuiTable_destroy(self)
+    ccall((:ImGuiTable_destroy, libcimgui), Cvoid, (Ptr{ImGuiTable},), self)
+end
+
+function ImGuiTableColumnSettings_ImGuiTableColumnSettings()
+    ccall((:ImGuiTableColumnSettings_ImGuiTableColumnSettings, libcimgui), Ptr{ImGuiTableColumnSettings}, ())
+end
+
+function ImGuiTableColumnSettings_destroy(self)
+    ccall((:ImGuiTableColumnSettings_destroy, libcimgui), Cvoid, (Ptr{ImGuiTableColumnSettings},), self)
+end
+
+function ImGuiTableSettings_ImGuiTableSettings()
+    ccall((:ImGuiTableSettings_ImGuiTableSettings, libcimgui), Ptr{ImGuiTableSettings}, ())
+end
+
+function ImGuiTableSettings_destroy(self)
+    ccall((:ImGuiTableSettings_destroy, libcimgui), Cvoid, (Ptr{ImGuiTableSettings},), self)
+end
+
+function ImGuiTableSettings_GetColumnSettings(self)
+    ccall((:ImGuiTableSettings_GetColumnSettings, libcimgui), Ptr{ImGuiTableColumnSettings}, (Ptr{ImGuiTableSettings},), self)
+end
+
 function igGetCurrentWindowRead()
     ccall((:igGetCurrentWindowRead, libcimgui), Ptr{ImGuiWindow}, ())
 end
@@ -2974,12 +3326,16 @@ function igUpdateWindowParentAndRootLinks(window, flags, parent_window)
     ccall((:igUpdateWindowParentAndRootLinks, libcimgui), Cvoid, (Ptr{ImGuiWindow}, ImGuiWindowFlags, Ptr{ImGuiWindow}), window, flags, parent_window)
 end
 
-function igCalcWindowExpectedSize(pOut, window)
-    ccall((:igCalcWindowExpectedSize, libcimgui), Cvoid, (Ptr{ImVec2}, Ptr{ImGuiWindow}), pOut, window)
+function igCalcWindowNextAutoFitSize(pOut, window)
+    ccall((:igCalcWindowNextAutoFitSize, libcimgui), Cvoid, (Ptr{ImVec2}, Ptr{ImGuiWindow}), pOut, window)
 end
 
 function igIsWindowChildOf(window, potential_parent)
     ccall((:igIsWindowChildOf, libcimgui), Bool, (Ptr{ImGuiWindow}, Ptr{ImGuiWindow}), window, potential_parent)
+end
+
+function igIsWindowAbove(potential_above, potential_below)
+    ccall((:igIsWindowAbove, libcimgui), Bool, (Ptr{ImGuiWindow}, Ptr{ImGuiWindow}), potential_above, potential_below)
 end
 
 function igIsWindowNavFocusable(window)
@@ -3054,12 +3410,40 @@ function igStartMouseMovingWindow(window)
     ccall((:igStartMouseMovingWindow, libcimgui), Cvoid, (Ptr{ImGuiWindow},), window)
 end
 
+function igStartMouseMovingWindowOrNode(window, node, undock_floating_node)
+    ccall((:igStartMouseMovingWindowOrNode, libcimgui), Cvoid, (Ptr{ImGuiWindow}, Ptr{ImGuiDockNode}, Bool), window, node, undock_floating_node)
+end
+
 function igUpdateMouseMovingWindowNewFrame()
     ccall((:igUpdateMouseMovingWindowNewFrame, libcimgui), Cvoid, ())
 end
 
 function igUpdateMouseMovingWindowEndFrame()
     ccall((:igUpdateMouseMovingWindowEndFrame, libcimgui), Cvoid, ())
+end
+
+function igAddContextHook(context, hook)
+    ccall((:igAddContextHook, libcimgui), ImGuiID, (Ptr{ImGuiContext}, Ptr{ImGuiContextHook}), context, hook)
+end
+
+function igRemoveContextHook(context, hook_to_remove)
+    ccall((:igRemoveContextHook, libcimgui), Cvoid, (Ptr{ImGuiContext}, ImGuiID), context, hook_to_remove)
+end
+
+function igCallContextHooks(context, type)
+    ccall((:igCallContextHooks, libcimgui), Cvoid, (Ptr{ImGuiContext}, ImGuiContextHookType), context, type)
+end
+
+function igTranslateWindowsInViewport(viewport, old_pos, new_pos)
+    ccall((:igTranslateWindowsInViewport, libcimgui), Cvoid, (Ptr{ImGuiViewportP}, ImVec2, ImVec2), viewport, old_pos, new_pos)
+end
+
+function igScaleWindowsInViewport(viewport, scale)
+    ccall((:igScaleWindowsInViewport, libcimgui), Cvoid, (Ptr{ImGuiViewportP}, Cfloat), viewport, scale)
+end
+
+function igDestroyPlatformWindow(viewport)
+    ccall((:igDestroyPlatformWindow, libcimgui), Cvoid, (Ptr{ImGuiViewportP},), viewport)
 end
 
 function igMarkIniSettingsDirtyNil()
@@ -3128,6 +3512,10 @@ end
 
 function igGetFocusID()
     ccall((:igGetFocusID, libcimgui), ImGuiID, ())
+end
+
+function igGetItemsFlags()
+    ccall((:igGetItemsFlags, libcimgui), ImGuiItemFlags, ())
 end
 
 function igSetActiveID(id, window)
@@ -3238,6 +3626,14 @@ function igLogToBuffer(auto_open_depth)
     ccall((:igLogToBuffer, libcimgui), Cvoid, (Cint,), auto_open_depth)
 end
 
+function igLogRenderedText(ref_pos, text, text_end)
+    ccall((:igLogRenderedText, libcimgui), Cvoid, (Ptr{ImVec2}, Cstring, Cstring), ref_pos, text, text_end)
+end
+
+function igLogSetNextTextDecoration(prefix, suffix)
+    ccall((:igLogSetNextTextDecoration, libcimgui), Cvoid, (Cstring, Cstring), prefix, suffix)
+end
+
 function igBeginChildEx(name, id, size_arg, border, flags)
     ccall((:igBeginChildEx, libcimgui), Bool, (Cstring, ImGuiID, ImVec2, Bool, ImGuiWindowFlags), name, id, size_arg, border, flags)
 end
@@ -3330,8 +3726,16 @@ function igPopFocusScope()
     ccall((:igPopFocusScope, libcimgui), Cvoid, ())
 end
 
-function igGetFocusScopeID()
-    ccall((:igGetFocusScopeID, libcimgui), ImGuiID, ())
+function igGetFocusedFocusScope()
+    ccall((:igGetFocusedFocusScope, libcimgui), ImGuiID, ())
+end
+
+function igGetFocusScope()
+    ccall((:igGetFocusScope, libcimgui), ImGuiID, ())
+end
+
+function igSetItemUsingMouseWheel()
+    ccall((:igSetItemUsingMouseWheel, libcimgui), Cvoid, ())
 end
 
 function igIsActiveIdUsingNavDir(dir)
@@ -3366,6 +3770,146 @@ function igGetMergedKeyModFlags()
     ccall((:igGetMergedKeyModFlags, libcimgui), ImGuiKeyModFlags, ())
 end
 
+function igDockContextInitialize(ctx)
+    ccall((:igDockContextInitialize, libcimgui), Cvoid, (Ptr{ImGuiContext},), ctx)
+end
+
+function igDockContextShutdown(ctx)
+    ccall((:igDockContextShutdown, libcimgui), Cvoid, (Ptr{ImGuiContext},), ctx)
+end
+
+function igDockContextClearNodes(ctx, root_id, clear_settings_refs)
+    ccall((:igDockContextClearNodes, libcimgui), Cvoid, (Ptr{ImGuiContext}, ImGuiID, Bool), ctx, root_id, clear_settings_refs)
+end
+
+function igDockContextRebuildNodes(ctx)
+    ccall((:igDockContextRebuildNodes, libcimgui), Cvoid, (Ptr{ImGuiContext},), ctx)
+end
+
+function igDockContextNewFrameUpdateUndocking(ctx)
+    ccall((:igDockContextNewFrameUpdateUndocking, libcimgui), Cvoid, (Ptr{ImGuiContext},), ctx)
+end
+
+function igDockContextNewFrameUpdateDocking(ctx)
+    ccall((:igDockContextNewFrameUpdateDocking, libcimgui), Cvoid, (Ptr{ImGuiContext},), ctx)
+end
+
+function igDockContextGenNodeID(ctx)
+    ccall((:igDockContextGenNodeID, libcimgui), ImGuiID, (Ptr{ImGuiContext},), ctx)
+end
+
+function igDockContextQueueDock(ctx, target, target_node, payload, split_dir, split_ratio, split_outer)
+    ccall((:igDockContextQueueDock, libcimgui), Cvoid, (Ptr{ImGuiContext}, Ptr{ImGuiWindow}, Ptr{ImGuiDockNode}, Ptr{ImGuiWindow}, ImGuiDir, Cfloat, Bool), ctx, target, target_node, payload, split_dir, split_ratio, split_outer)
+end
+
+function igDockContextQueueUndockWindow(ctx, window)
+    ccall((:igDockContextQueueUndockWindow, libcimgui), Cvoid, (Ptr{ImGuiContext}, Ptr{ImGuiWindow}), ctx, window)
+end
+
+function igDockContextQueueUndockNode(ctx, node)
+    ccall((:igDockContextQueueUndockNode, libcimgui), Cvoid, (Ptr{ImGuiContext}, Ptr{ImGuiDockNode}), ctx, node)
+end
+
+function igDockContextCalcDropPosForDocking(target, target_node, payload, split_dir, split_outer, out_pos)
+    ccall((:igDockContextCalcDropPosForDocking, libcimgui), Bool, (Ptr{ImGuiWindow}, Ptr{ImGuiDockNode}, Ptr{ImGuiWindow}, ImGuiDir, Bool, Ptr{ImVec2}), target, target_node, payload, split_dir, split_outer, out_pos)
+end
+
+function igDockNodeBeginAmendTabBar(node)
+    ccall((:igDockNodeBeginAmendTabBar, libcimgui), Bool, (Ptr{ImGuiDockNode},), node)
+end
+
+function igDockNodeEndAmendTabBar()
+    ccall((:igDockNodeEndAmendTabBar, libcimgui), Cvoid, ())
+end
+
+function igDockNodeGetRootNode(node)
+    ccall((:igDockNodeGetRootNode, libcimgui), Ptr{ImGuiDockNode}, (Ptr{ImGuiDockNode},), node)
+end
+
+function igDockNodeGetDepth(node)
+    ccall((:igDockNodeGetDepth, libcimgui), Cint, (Ptr{ImGuiDockNode},), node)
+end
+
+function igGetWindowDockNode()
+    ccall((:igGetWindowDockNode, libcimgui), Ptr{ImGuiDockNode}, ())
+end
+
+function igGetWindowAlwaysWantOwnTabBar(window)
+    ccall((:igGetWindowAlwaysWantOwnTabBar, libcimgui), Bool, (Ptr{ImGuiWindow},), window)
+end
+
+function igBeginDocked(window, p_open)
+    ccall((:igBeginDocked, libcimgui), Cvoid, (Ptr{ImGuiWindow}, Ptr{Bool}), window, p_open)
+end
+
+function igBeginDockableDragDropSource(window)
+    ccall((:igBeginDockableDragDropSource, libcimgui), Cvoid, (Ptr{ImGuiWindow},), window)
+end
+
+function igBeginDockableDragDropTarget(window)
+    ccall((:igBeginDockableDragDropTarget, libcimgui), Cvoid, (Ptr{ImGuiWindow},), window)
+end
+
+function igSetWindowDock(window, dock_id, cond)
+    ccall((:igSetWindowDock, libcimgui), Cvoid, (Ptr{ImGuiWindow}, ImGuiID, ImGuiCond), window, dock_id, cond)
+end
+
+function igDockBuilderDockWindow(window_name, node_id)
+    ccall((:igDockBuilderDockWindow, libcimgui), Cvoid, (Cstring, ImGuiID), window_name, node_id)
+end
+
+function igDockBuilderGetNode(node_id)
+    ccall((:igDockBuilderGetNode, libcimgui), Ptr{ImGuiDockNode}, (ImGuiID,), node_id)
+end
+
+function igDockBuilderGetCentralNode(node_id)
+    ccall((:igDockBuilderGetCentralNode, libcimgui), Ptr{ImGuiDockNode}, (ImGuiID,), node_id)
+end
+
+function igDockBuilderAddNode(node_id, flags)
+    ccall((:igDockBuilderAddNode, libcimgui), ImGuiID, (ImGuiID, ImGuiDockNodeFlags), node_id, flags)
+end
+
+function igDockBuilderRemoveNode(node_id)
+    ccall((:igDockBuilderRemoveNode, libcimgui), Cvoid, (ImGuiID,), node_id)
+end
+
+function igDockBuilderRemoveNodeDockedWindows(node_id, clear_settings_refs)
+    ccall((:igDockBuilderRemoveNodeDockedWindows, libcimgui), Cvoid, (ImGuiID, Bool), node_id, clear_settings_refs)
+end
+
+function igDockBuilderRemoveNodeChildNodes(node_id)
+    ccall((:igDockBuilderRemoveNodeChildNodes, libcimgui), Cvoid, (ImGuiID,), node_id)
+end
+
+function igDockBuilderSetNodePos(node_id, pos)
+    ccall((:igDockBuilderSetNodePos, libcimgui), Cvoid, (ImGuiID, ImVec2), node_id, pos)
+end
+
+function igDockBuilderSetNodeSize(node_id, size)
+    ccall((:igDockBuilderSetNodeSize, libcimgui), Cvoid, (ImGuiID, ImVec2), node_id, size)
+end
+
+function igDockBuilderSplitNode(node_id, split_dir, size_ratio_for_node_at_dir, out_id_at_dir, out_id_at_opposite_dir)
+    ccall((:igDockBuilderSplitNode, libcimgui), ImGuiID, (ImGuiID, ImGuiDir, Cfloat, Ptr{ImGuiID}, Ptr{ImGuiID}), node_id, split_dir, size_ratio_for_node_at_dir, out_id_at_dir, out_id_at_opposite_dir)
+end
+
+function igDockBuilderCopyDockSpace(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs)
+    ccall((:igDockBuilderCopyDockSpace, libcimgui), Cvoid, (ImGuiID, ImGuiID, Ptr{ImVector_const_charPtr}), src_dockspace_id, dst_dockspace_id, in_window_remap_pairs)
+end
+
+function igDockBuilderCopyNode(src_node_id, dst_node_id, out_node_remap_pairs)
+    ccall((:igDockBuilderCopyNode, libcimgui), Cvoid, (ImGuiID, ImGuiID, Ptr{ImVector_ImGuiID}), src_node_id, dst_node_id, out_node_remap_pairs)
+end
+
+function igDockBuilderCopyWindowSettings(src_name, dst_name)
+    ccall((:igDockBuilderCopyWindowSettings, libcimgui), Cvoid, (Cstring, Cstring), src_name, dst_name)
+end
+
+function igDockBuilderFinish(node_id)
+    ccall((:igDockBuilderFinish, libcimgui), Cvoid, (ImGuiID,), node_id)
+end
+
 function igBeginDragDropTargetCustom(bb, id)
     ccall((:igBeginDragDropTargetCustom, libcimgui), Bool, (ImRect, ImGuiID), bb, id)
 end
@@ -3383,7 +3927,7 @@ function igSetWindowClipRectBeforeSetChannel(window, clip_rect)
 end
 
 function igBeginColumns(str_id, count, flags)
-    ccall((:igBeginColumns, libcimgui), Cvoid, (Cstring, Cint, ImGuiColumnsFlags), str_id, count, flags)
+    ccall((:igBeginColumns, libcimgui), Cvoid, (Cstring, Cint, ImGuiOldColumnFlags), str_id, count, flags)
 end
 
 function igEndColumns()
@@ -3407,23 +3951,207 @@ function igGetColumnsID(str_id, count)
 end
 
 function igFindOrCreateColumns(window, id)
-    ccall((:igFindOrCreateColumns, libcimgui), Ptr{ImGuiColumns}, (Ptr{ImGuiWindow}, ImGuiID), window, id)
+    ccall((:igFindOrCreateColumns, libcimgui), Ptr{ImGuiOldColumns}, (Ptr{ImGuiWindow}, ImGuiID), window, id)
 end
 
 function igGetColumnOffsetFromNorm(columns, offset_norm)
-    ccall((:igGetColumnOffsetFromNorm, libcimgui), Cfloat, (Ptr{ImGuiColumns}, Cfloat), columns, offset_norm)
+    ccall((:igGetColumnOffsetFromNorm, libcimgui), Cfloat, (Ptr{ImGuiOldColumns}, Cfloat), columns, offset_norm)
 end
 
 function igGetColumnNormFromOffset(columns, offset)
-    ccall((:igGetColumnNormFromOffset, libcimgui), Cfloat, (Ptr{ImGuiColumns}, Cfloat), columns, offset)
+    ccall((:igGetColumnNormFromOffset, libcimgui), Cfloat, (Ptr{ImGuiOldColumns}, Cfloat), columns, offset)
 end
 
-function igBeginTabBarEx(tab_bar, bb, flags)
-    ccall((:igBeginTabBarEx, libcimgui), Bool, (Ptr{ImGuiTabBar}, ImRect, ImGuiTabBarFlags), tab_bar, bb, flags)
+function igTableOpenContextMenu(column_n)
+    ccall((:igTableOpenContextMenu, libcimgui), Cvoid, (Cint,), column_n)
+end
+
+function igTableSetColumnEnabled(column_n, enabled)
+    ccall((:igTableSetColumnEnabled, libcimgui), Cvoid, (Cint, Bool), column_n, enabled)
+end
+
+function igTableSetColumnWidth(column_n, width)
+    ccall((:igTableSetColumnWidth, libcimgui), Cvoid, (Cint, Cfloat), column_n, width)
+end
+
+function igTableSetColumnSortDirection(column_n, sort_direction, append_to_sort_specs)
+    ccall((:igTableSetColumnSortDirection, libcimgui), Cvoid, (Cint, ImGuiSortDirection, Bool), column_n, sort_direction, append_to_sort_specs)
+end
+
+function igTableGetHoveredColumn()
+    ccall((:igTableGetHoveredColumn, libcimgui), Cint, ())
+end
+
+function igTableGetHeaderRowHeight()
+    ccall((:igTableGetHeaderRowHeight, libcimgui), Cfloat, ())
+end
+
+function igTablePushBackgroundChannel()
+    ccall((:igTablePushBackgroundChannel, libcimgui), Cvoid, ())
+end
+
+function igTablePopBackgroundChannel()
+    ccall((:igTablePopBackgroundChannel, libcimgui), Cvoid, ())
+end
+
+function igTableFindByID(id)
+    ccall((:igTableFindByID, libcimgui), Ptr{ImGuiTable}, (ImGuiID,), id)
+end
+
+function igBeginTableEx(name, id, columns_count, flags, outer_size, inner_width)
+    ccall((:igBeginTableEx, libcimgui), Bool, (Cstring, ImGuiID, Cint, ImGuiTableFlags, ImVec2, Cfloat), name, id, columns_count, flags, outer_size, inner_width)
+end
+
+function igTableBeginInitMemory(table, columns_count)
+    ccall((:igTableBeginInitMemory, libcimgui), Cvoid, (Ptr{ImGuiTable}, Cint), table, columns_count)
+end
+
+function igTableBeginApplyRequests(table)
+    ccall((:igTableBeginApplyRequests, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableSetupDrawChannels(table)
+    ccall((:igTableSetupDrawChannels, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableUpdateLayout(table)
+    ccall((:igTableUpdateLayout, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableUpdateBorders(table)
+    ccall((:igTableUpdateBorders, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableUpdateColumnsWeightFromWidth(table)
+    ccall((:igTableUpdateColumnsWeightFromWidth, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableDrawBorders(table)
+    ccall((:igTableDrawBorders, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableDrawContextMenu(table)
+    ccall((:igTableDrawContextMenu, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableMergeDrawChannels(table)
+    ccall((:igTableMergeDrawChannels, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableSortSpecsSanitize(table)
+    ccall((:igTableSortSpecsSanitize, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableSortSpecsBuild(table)
+    ccall((:igTableSortSpecsBuild, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableGetColumnNextSortDirection(column)
+    ccall((:igTableGetColumnNextSortDirection, libcimgui), ImGuiSortDirection, (Ptr{ImGuiTableColumn},), column)
+end
+
+function igTableFixColumnSortDirection(table, column)
+    ccall((:igTableFixColumnSortDirection, libcimgui), Cvoid, (Ptr{ImGuiTable}, Ptr{ImGuiTableColumn}), table, column)
+end
+
+function igTableGetColumnWidthAuto(table, column)
+    ccall((:igTableGetColumnWidthAuto, libcimgui), Cfloat, (Ptr{ImGuiTable}, Ptr{ImGuiTableColumn}), table, column)
+end
+
+function igTableBeginRow(table)
+    ccall((:igTableBeginRow, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableEndRow(table)
+    ccall((:igTableEndRow, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableBeginCell(table, column_n)
+    ccall((:igTableBeginCell, libcimgui), Cvoid, (Ptr{ImGuiTable}, Cint), table, column_n)
+end
+
+function igTableEndCell(table)
+    ccall((:igTableEndCell, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableGetCellBgRect(pOut, table, column_n)
+    ccall((:igTableGetCellBgRect, libcimgui), Cvoid, (Ptr{ImRect}, Ptr{ImGuiTable}, Cint), pOut, table, column_n)
+end
+
+function igTableGetColumnNameTablePtr(table, column_n)
+    ccall((:igTableGetColumnNameTablePtr, libcimgui), Cstring, (Ptr{ImGuiTable}, Cint), table, column_n)
+end
+
+function igTableGetColumnResizeID(table, column_n, instance_no)
+    ccall((:igTableGetColumnResizeID, libcimgui), ImGuiID, (Ptr{ImGuiTable}, Cint, Cint), table, column_n, instance_no)
+end
+
+function igTableGetMaxColumnWidth(table, column_n)
+    ccall((:igTableGetMaxColumnWidth, libcimgui), Cfloat, (Ptr{ImGuiTable}, Cint), table, column_n)
+end
+
+function igTableSetColumnWidthAutoSingle(table, column_n)
+    ccall((:igTableSetColumnWidthAutoSingle, libcimgui), Cvoid, (Ptr{ImGuiTable}, Cint), table, column_n)
+end
+
+function igTableSetColumnWidthAutoAll(table)
+    ccall((:igTableSetColumnWidthAutoAll, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableRemove(table)
+    ccall((:igTableRemove, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableGcCompactTransientBuffers(table)
+    ccall((:igTableGcCompactTransientBuffers, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableGcCompactSettings()
+    ccall((:igTableGcCompactSettings, libcimgui), Cvoid, ())
+end
+
+function igTableLoadSettings(table)
+    ccall((:igTableLoadSettings, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableSaveSettings(table)
+    ccall((:igTableSaveSettings, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableResetSettings(table)
+    ccall((:igTableResetSettings, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igTableGetBoundSettings(table)
+    ccall((:igTableGetBoundSettings, libcimgui), Ptr{ImGuiTableSettings}, (Ptr{ImGuiTable},), table)
+end
+
+function igTableSettingsInstallHandler(context)
+    ccall((:igTableSettingsInstallHandler, libcimgui), Cvoid, (Ptr{ImGuiContext},), context)
+end
+
+function igTableSettingsCreate(id, columns_count)
+    ccall((:igTableSettingsCreate, libcimgui), Ptr{ImGuiTableSettings}, (ImGuiID, Cint), id, columns_count)
+end
+
+function igTableSettingsFindByID(id)
+    ccall((:igTableSettingsFindByID, libcimgui), Ptr{ImGuiTableSettings}, (ImGuiID,), id)
+end
+
+function igBeginTabBarEx(tab_bar, bb, flags, dock_node)
+    ccall((:igBeginTabBarEx, libcimgui), Bool, (Ptr{ImGuiTabBar}, ImRect, ImGuiTabBarFlags, Ptr{ImGuiDockNode}), tab_bar, bb, flags, dock_node)
 end
 
 function igTabBarFindTabByID(tab_bar, tab_id)
     ccall((:igTabBarFindTabByID, libcimgui), Ptr{ImGuiTabItem}, (Ptr{ImGuiTabBar}, ImGuiID), tab_bar, tab_id)
+end
+
+function igTabBarFindMostRecentlySelectedTabForActiveWindow(tab_bar)
+    ccall((:igTabBarFindMostRecentlySelectedTabForActiveWindow, libcimgui), Ptr{ImGuiTabItem}, (Ptr{ImGuiTabBar},), tab_bar)
+end
+
+function igTabBarAddTab(tab_bar, tab_flags, window)
+    ccall((:igTabBarAddTab, libcimgui), Cvoid, (Ptr{ImGuiTabBar}, ImGuiTabItemFlags, Ptr{ImGuiWindow}), tab_bar, tab_flags, window)
 end
 
 function igTabBarRemoveTab(tab_bar, tab_id)
@@ -3442,8 +4170,8 @@ function igTabBarProcessReorder(tab_bar)
     ccall((:igTabBarProcessReorder, libcimgui), Bool, (Ptr{ImGuiTabBar},), tab_bar)
 end
 
-function igTabItemEx(tab_bar, label, p_open, flags)
-    ccall((:igTabItemEx, libcimgui), Bool, (Ptr{ImGuiTabBar}, Cstring, Ptr{Bool}, ImGuiTabItemFlags), tab_bar, label, p_open, flags)
+function igTabItemEx(tab_bar, label, p_open, flags, docked_window)
+    ccall((:igTabItemEx, libcimgui), Bool, (Ptr{ImGuiTabBar}, Cstring, Ptr{Bool}, ImGuiTabItemFlags, Ptr{ImGuiWindow}), tab_bar, label, p_open, flags, docked_window)
 end
 
 function igTabItemCalcSize(pOut, label, has_close_button)
@@ -3454,8 +4182,8 @@ function igTabItemBackground(draw_list, bb, flags, col)
     ccall((:igTabItemBackground, libcimgui), Cvoid, (Ptr{ImDrawList}, ImRect, ImGuiTabItemFlags, ImU32), draw_list, bb, flags, col)
 end
 
-function igTabItemLabelAndCloseButton(draw_list, bb, flags, frame_padding, label, tab_id, close_button_id, is_contents_visible)
-    ccall((:igTabItemLabelAndCloseButton, libcimgui), Bool, (Ptr{ImDrawList}, ImRect, ImGuiTabItemFlags, ImVec2, Cstring, ImGuiID, ImGuiID, Bool), draw_list, bb, flags, frame_padding, label, tab_id, close_button_id, is_contents_visible)
+function igTabItemLabelAndCloseButton(draw_list, bb, flags, frame_padding, label, tab_id, close_button_id, is_contents_visible, out_just_closed, out_text_clipped)
+    ccall((:igTabItemLabelAndCloseButton, libcimgui), Cvoid, (Ptr{ImDrawList}, ImRect, ImGuiTabItemFlags, ImVec2, Cstring, ImGuiID, ImGuiID, Bool, Ptr{Bool}, Ptr{Bool}), draw_list, bb, flags, frame_padding, label, tab_id, close_button_id, is_contents_visible, out_just_closed, out_text_clipped)
 end
 
 function igRenderText(pos, text, text_end, hide_text_after_hash)
@@ -3498,10 +4226,6 @@ function igFindRenderedTextEnd(text, text_end)
     ccall((:igFindRenderedTextEnd, libcimgui), Cstring, (Cstring, Cstring), text, text_end)
 end
 
-function igLogRenderedText(ref_pos, text, text_end)
-    ccall((:igLogRenderedText, libcimgui), Cvoid, (Ptr{ImVec2}, Cstring, Cstring), ref_pos, text, text_end)
-end
-
 function igRenderArrow(draw_list, pos, col, dir, scale)
     ccall((:igRenderArrow, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImU32, ImGuiDir, Cfloat), draw_list, pos, col, dir, scale)
 end
@@ -3520,6 +4244,10 @@ end
 
 function igRenderArrowPointingAt(draw_list, pos, half_sz, direction, col)
     ccall((:igRenderArrowPointingAt, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImVec2, ImGuiDir, ImU32), draw_list, pos, half_sz, direction, col)
+end
+
+function igRenderArrowDockMenu(draw_list, p_min, sz, col)
+    ccall((:igRenderArrowDockMenu, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, Cfloat, ImU32), draw_list, p_min, sz, col)
 end
 
 function igRenderRectFilledRangeH(draw_list, rect, col, x_start_norm, x_end_norm, rounding)
@@ -3542,8 +4270,8 @@ function igCloseButton(id, pos)
     ccall((:igCloseButton, libcimgui), Bool, (ImGuiID, ImVec2), id, pos)
 end
 
-function igCollapseButton(id, pos)
-    ccall((:igCollapseButton, libcimgui), Bool, (ImGuiID, ImVec2), id, pos)
+function igCollapseButton(id, pos, dock_node)
+    ccall((:igCollapseButton, libcimgui), Bool, (ImGuiID, ImVec2, Ptr{ImGuiDockNode}), id, pos, dock_node)
 end
 
 function igArrowButtonEx(str_id, dir, size_arg, flags)
@@ -3576,6 +4304,14 @@ end
 
 function igSeparatorEx(flags)
     ccall((:igSeparatorEx, libcimgui), Cvoid, (ImGuiSeparatorFlags,), flags)
+end
+
+function igCheckboxFlagsS64Ptr(label, flags, flags_value)
+    ccall((:igCheckboxFlagsS64Ptr, libcimgui), Bool, (Cstring, Ptr{ImS64}, ImS64), label, flags, flags_value)
+end
+
+function igCheckboxFlagsU64Ptr(label, flags, flags_value)
+    ccall((:igCheckboxFlagsU64Ptr, libcimgui), Bool, (Cstring, Ptr{ImU64}, ImU64), label, flags, flags_value)
 end
 
 function igButtonBehavior(bb, id, out_hovered, out_held, flags)
@@ -3674,12 +4410,20 @@ function igShadeVertsLinearUV(draw_list, vert_start_idx, vert_end_idx, a, b, uv_
     ccall((:igShadeVertsLinearUV, libcimgui), Cvoid, (Ptr{ImDrawList}, Cint, Cint, ImVec2, ImVec2, ImVec2, ImVec2, Bool), draw_list, vert_start_idx, vert_end_idx, a, b, uv_a, uv_b, clamp)
 end
 
+function igGcCompactTransientMiscBuffers()
+    ccall((:igGcCompactTransientMiscBuffers, libcimgui), Cvoid, ())
+end
+
 function igGcCompactTransientWindowBuffers(window)
     ccall((:igGcCompactTransientWindowBuffers, libcimgui), Cvoid, (Ptr{ImGuiWindow},), window)
 end
 
 function igGcAwakeTransientWindowBuffers(window)
     ccall((:igGcAwakeTransientWindowBuffers, libcimgui), Cvoid, (Ptr{ImGuiWindow},), window)
+end
+
+function igErrorCheckEndFrameRecover(log_callback, user_data)
+    ccall((:igErrorCheckEndFrameRecover, libcimgui), Cvoid, (ImGuiErrorLogCallback, Ptr{Cvoid}), log_callback, user_data)
 end
 
 function igDebugDrawItemRect(col)
@@ -3690,8 +4434,60 @@ function igDebugStartItemPicker()
     ccall((:igDebugStartItemPicker, libcimgui), Cvoid, ())
 end
 
-function igImFontAtlasBuildWithStbTruetype(atlas)
-    ccall((:igImFontAtlasBuildWithStbTruetype, libcimgui), Bool, (Ptr{ImFontAtlas},), atlas)
+function igDebugNodeColumns(columns)
+    ccall((:igDebugNodeColumns, libcimgui), Cvoid, (Ptr{ImGuiOldColumns},), columns)
+end
+
+function igDebugNodeDockNode(node, label)
+    ccall((:igDebugNodeDockNode, libcimgui), Cvoid, (Ptr{ImGuiDockNode}, Cstring), node, label)
+end
+
+function igDebugNodeDrawList(window, viewport, draw_list, label)
+    ccall((:igDebugNodeDrawList, libcimgui), Cvoid, (Ptr{ImGuiWindow}, Ptr{ImGuiViewportP}, Ptr{ImDrawList}, Cstring), window, viewport, draw_list, label)
+end
+
+function igDebugNodeDrawCmdShowMeshAndBoundingBox(out_draw_list, draw_list, draw_cmd, show_mesh, show_aabb)
+    ccall((:igDebugNodeDrawCmdShowMeshAndBoundingBox, libcimgui), Cvoid, (Ptr{ImDrawList}, Ptr{ImDrawList}, Ptr{ImDrawCmd}, Bool, Bool), out_draw_list, draw_list, draw_cmd, show_mesh, show_aabb)
+end
+
+function igDebugNodeStorage(storage, label)
+    ccall((:igDebugNodeStorage, libcimgui), Cvoid, (Ptr{ImGuiStorage}, Cstring), storage, label)
+end
+
+function igDebugNodeTabBar(tab_bar, label)
+    ccall((:igDebugNodeTabBar, libcimgui), Cvoid, (Ptr{ImGuiTabBar}, Cstring), tab_bar, label)
+end
+
+function igDebugNodeTable(table)
+    ccall((:igDebugNodeTable, libcimgui), Cvoid, (Ptr{ImGuiTable},), table)
+end
+
+function igDebugNodeTableSettings(settings)
+    ccall((:igDebugNodeTableSettings, libcimgui), Cvoid, (Ptr{ImGuiTableSettings},), settings)
+end
+
+function igDebugNodeWindow(window, label)
+    ccall((:igDebugNodeWindow, libcimgui), Cvoid, (Ptr{ImGuiWindow}, Cstring), window, label)
+end
+
+function igDebugNodeWindowSettings(settings)
+    ccall((:igDebugNodeWindowSettings, libcimgui), Cvoid, (Ptr{ImGuiWindowSettings},), settings)
+end
+
+function igDebugNodeWindowsList(windows, label)
+    ccall((:igDebugNodeWindowsList, libcimgui), Cvoid, (Ptr{ImVector_ImGuiWindowPtr}, Cstring), windows, label)
+end
+
+function igDebugNodeViewport(viewport)
+    ccall((:igDebugNodeViewport, libcimgui), Cvoid, (Ptr{ImGuiViewportP},), viewport)
+end
+
+function igDebugRenderViewportThumbnail(draw_list, viewport, bb)
+    ccall((:igDebugRenderViewportThumbnail, libcimgui), Cvoid, (Ptr{ImDrawList}, Ptr{ImGuiViewportP}, ImRect), draw_list, viewport, bb)
+end
+
+function igImFontAtlasGetBuilderForStbTruetype()
+    ccall((:igImFontAtlasGetBuilderForStbTruetype, libcimgui), Ptr{ImFontBuilderIO}, ())
 end
 
 function igImFontAtlasBuildInit(atlas)
@@ -3710,8 +4506,12 @@ function igImFontAtlasBuildFinish(atlas)
     ccall((:igImFontAtlasBuildFinish, libcimgui), Cvoid, (Ptr{ImFontAtlas},), atlas)
 end
 
-function igImFontAtlasBuildRender1bppRectFromString(atlas, atlas_x, atlas_y, w, h, in_str, in_marker_char, in_marker_pixel_value)
-    ccall((:igImFontAtlasBuildRender1bppRectFromString, libcimgui), Cvoid, (Ptr{ImFontAtlas}, Cint, Cint, Cint, Cint, Cstring, Cchar, Cuchar), atlas, atlas_x, atlas_y, w, h, in_str, in_marker_char, in_marker_pixel_value)
+function igImFontAtlasBuildRender8bppRectFromString(atlas, x, y, w, h, in_str, in_marker_char, in_marker_pixel_value)
+    ccall((:igImFontAtlasBuildRender8bppRectFromString, libcimgui), Cvoid, (Ptr{ImFontAtlas}, Cint, Cint, Cint, Cint, Cstring, UInt8, Cuchar), atlas, x, y, w, h, in_str, in_marker_char, in_marker_pixel_value)
+end
+
+function igImFontAtlasBuildRender32bppRectFromString(atlas, x, y, w, h, in_str, in_marker_char, in_marker_pixel_value)
+    ccall((:igImFontAtlasBuildRender32bppRectFromString, libcimgui), Cvoid, (Ptr{ImFontAtlas}, Cint, Cint, Cint, Cint, Cstring, UInt8, UInt32), atlas, x, y, w, h, in_str, in_marker_char, in_marker_pixel_value)
 end
 
 function igImFontAtlasBuildMultiplyCalcLookupTable(out_table, in_multiply_factor)
@@ -3724,6 +4524,10 @@ end
 
 function igGET_FLT_MAX()
     ccall((:igGET_FLT_MAX, libcimgui), Cfloat, ())
+end
+
+function igGET_FLT_MIN()
+    ccall((:igGET_FLT_MIN, libcimgui), Cfloat, ())
 end
 
 function ImVector_ImWchar_create()

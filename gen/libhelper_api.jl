@@ -118,14 +118,6 @@ function ImGuiIO_Get_BackendLanguageUserData(io)
     ccall((:ImGuiIO_Get_BackendLanguageUserData, libcimgui_helper), Ptr{Cvoid}, (Ptr{ImGuiIO},), io)
 end
 
-function ImGuiIO_Get_ImeWindowHandle(io)
-    ccall((:ImGuiIO_Get_ImeWindowHandle, libcimgui_helper), Ptr{Cvoid}, (Ptr{ImGuiIO},), io)
-end
-
-function ImGuiIO_Get_RenderDrawListsFnUnused(io)
-    ccall((:ImGuiIO_Get_RenderDrawListsFnUnused, libcimgui_helper), Ptr{Cvoid}, (Ptr{ImGuiIO},), io)
-end
-
 function ImGuiIO_Get_MousePos(io)
     ccall((:ImGuiIO_Get_MousePos, libcimgui_helper), ImVec2, (Ptr{ImGuiIO},), io)
 end
@@ -412,18 +404,6 @@ end
 
 function ImGuiIO_Set_ClipboardUserData(io, x)
     ccall((:ImGuiIO_Set_ClipboardUserData, libcimgui_helper), Cvoid, (Ptr{ImGuiIO}, Ptr{Cvoid}), io, x)
-end
-
-function ImGuiIO_Set_ImeSetInputScreenPosFn(io, x)
-    ccall((:ImGuiIO_Set_ImeSetInputScreenPosFn, libcimgui_helper), Cvoid, (Ptr{ImGuiIO}, Ptr{Cvoid}), io, x)
-end
-
-function ImGuiIO_Set_ImeWindowHandle(io, x)
-    ccall((:ImGuiIO_Set_ImeWindowHandle, libcimgui_helper), Cvoid, (Ptr{ImGuiIO}, Ptr{Cvoid}), io, x)
-end
-
-function ImGuiIO_Set_RenderDrawListsFnUnused(io, x)
-    ccall((:ImGuiIO_Set_RenderDrawListsFnUnused, libcimgui_helper), Cvoid, (Ptr{ImGuiIO}, Ptr{Cvoid}), io, x)
 end
 
 function ImGuiIO_Set_MousePos(io, x)
