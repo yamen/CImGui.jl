@@ -77,7 +77,7 @@ try
 
         # show a simple window that we create ourselves.
         # we use a Begin/End pair to created a named window.
-        @cstatic f=Cfloat(0.0) counter=Cint(0) begin
+        @cstatic f = Cfloat(0.0) counter = Cint(0) begin
             CImGui.Begin("Hello, world!")  # create a window called "Hello, world!" and append into it.
             CImGui.Text("This is some useful text.")  # display some text
             @c CImGui.Checkbox("Demo Window", &show_demo_window)  # edit bools storing our window open/close state
@@ -115,7 +115,7 @@ try
         GLFW.SwapBuffers(window)
     end
 catch e
-    @error "Error in renderloop!" exception=e
+    @error "Error in renderloop!" exception = e
     Base.show_backtrace(stderr, catch_backtrace())
 finally
     ImGui_ImplOpenGL3_Shutdown()

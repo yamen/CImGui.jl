@@ -12,7 +12,7 @@ Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 ModernGL = "66fc600b-dfda-50eb-8b99-91cfa97b1301"
 
 [compat]
-CImGui_jll = "1.81.2"
+CImGui_jll = "1.81.4"
 CSyntax = "0.4.0"
 GLFW = "3.2.0,3.3.0,3.4.0"
 ModernGL = "1.1.0"
