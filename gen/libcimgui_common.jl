@@ -1,11 +1,16 @@
 # Automatically generated using Clang.jl
 
 
+const CIMGUI_INCLUDED = nothing
+
 # Skipping MacroDefinition: API __declspec ( dllexport )
+# Skipping MacroDefinition: EXTERN extern
+# Skipping MacroDefinition: CIMGUI_API EXTERN API
+# Skipping MacroDefinition: CONST const
 
 const IMGUI_HAS_DOCK = 1
-const ImGuiID = UInt32
-const ImS8 = UInt8
+const ImGuiID = Cuint
+const ImS8 = Int8
 const ImGuiTableColumnIdx = ImS8
 const ImU8 = Cuchar
 
@@ -20,7 +25,7 @@ struct ImGuiTableColumnSettings
     IsStretch::ImU8
 end
 
-const ImU32 = UInt32
+const ImU32 = Cuint
 
 struct ImGuiTableCellData
     BgColor::ImU32
@@ -47,9 +52,9 @@ const ImDrawCallback = Ptr{Cvoid}
 struct ImDrawCmd
     ClipRect::ImVec4
     TextureId::ImTextureID
-    VtxOffset::UInt32
-    IdxOffset::UInt32
-    ElemCount::UInt32
+    VtxOffset::Cuint
+    IdxOffset::Cuint
+    ElemCount::Cuint
     UserCallback::ImDrawCallback
     UserCallbackData::Ptr{Cvoid}
 end
@@ -60,7 +65,7 @@ struct ImVector_ImDrawCmd
     Data::Ptr{ImDrawCmd}
 end
 
-const ImDrawIdx = UInt16
+const ImDrawIdx = Cushort
 
 struct ImVector_ImDrawIdx
     Size::Cint
@@ -88,7 +93,7 @@ struct ImVector_float
     Data::Ptr{Cfloat}
 end
 
-const ImWchar16 = UInt16
+const ImWchar16 = Cushort
 const ImWchar = ImWchar16
 
 struct ImVector_ImWchar
@@ -98,9 +103,9 @@ struct ImVector_ImWchar
 end
 
 struct ImFontGlyph
-    Colored::UInt32
-    Visible::UInt32
-    Codepoint::UInt32
+    Colored::Cuint
+    Visible::Cuint
+    Codepoint::Cuint
     AdvanceX::Cfloat
     X0::Cfloat
     Y0::Cfloat
@@ -127,11 +132,11 @@ struct ImVector_ImFontPtr
 end
 
 struct ImFontAtlasCustomRect
-    Width::UInt16
-    Height::UInt16
-    X::UInt16
-    Y::UInt16
-    GlyphID::UInt32
+    Width::Cushort
+    Height::Cushort
+    X::Cushort
+    Y::Cushort
+    GlyphID::Cuint
     GlyphAdvanceX::Cfloat
     GlyphOffset::ImVec2
     Font::Ptr{Cvoid}
@@ -140,7 +145,7 @@ end
 struct ImVector_ImFontAtlasCustomRect
     Size::Cint
     Capacity::Cint
-    Data::Ptr{Cvoid}
+    Data::Ptr{ImFontAtlasCustomRect}
 end
 
 struct ImFontConfig
@@ -158,10 +163,10 @@ struct ImFontConfig
     GlyphMinAdvanceX::Cfloat
     GlyphMaxAdvanceX::Cfloat
     MergeMode::Bool
-    FontBuilderFlags::UInt32
+    FontBuilderFlags::Cuint
     RasterizerMultiply::Cfloat
     EllipsisChar::ImWchar
-    Name::NTuple{40,UInt8}
+    Name::NTuple{40,Cchar}
     DstFont::Ptr{Cvoid}
 end
 
@@ -182,7 +187,7 @@ struct ImFontAtlas
     TexDesiredWidth::Cint
     TexGlyphPadding::Cint
     TexPixelsAlpha8::Ptr{Cuchar}
-    TexPixelsRGBA32::Ptr{UInt32}
+    TexPixelsRGBA32::Ptr{Cuint}
     TexWidth::Cint
     TexHeight::Cint
     TexUvScale::ImVec2
@@ -192,7 +197,7 @@ struct ImFontAtlas
     ConfigData::ImVector_ImFontConfig
     TexUvLines::NTuple{64,ImVec4}
     FontBuilderIO::Ptr{ImFontBuilderIO}
-    FontBuilderFlags::UInt32
+    FontBuilderFlags::Cuint
     PackIdMouseCursors::Cint
     PackIdLines::Cint
 end
@@ -206,7 +211,7 @@ struct ImFont
     FallbackGlyph::Ptr{ImFontGlyph}
     ContainerAtlas::Ptr{ImFontAtlas}
     ConfigData::Ptr{ImFontConfig}
-    ConfigDataCount::Int16
+    ConfigDataCount::Cshort
     FallbackChar::ImWchar
     EllipsisChar::ImWchar
     DirtyLookupTables::Bool
@@ -251,7 +256,7 @@ end
 struct ImDrawCmdHeader
     ClipRect::ImVec4
     TextureId::ImTextureID
-    VtxOffset::UInt32
+    VtxOffset::Cuint
 end
 
 struct ImDrawChannel
@@ -276,7 +281,7 @@ struct ImDrawList
     IdxBuffer::ImVector_ImDrawIdx
     VtxBuffer::ImVector_ImDrawVert
     Flags::ImDrawListFlags
-    _VtxCurrentIdx::UInt32
+    _VtxCurrentIdx::Cuint
     _Data::Ptr{ImDrawListSharedData}
     _OwnerName::Cstring
     _VtxWritePtr::Ptr{ImDrawVert}
@@ -430,13 +435,13 @@ const ImGuiLayoutType = Cint
 const ImGuiItemFlags = Cint
 
 struct ImGuiStackSizes
-    SizeOfIDStack::Int16
-    SizeOfColorStack::Int16
-    SizeOfStyleVarStack::Int16
-    SizeOfFontStack::Int16
-    SizeOfFocusScopeStack::Int16
-    SizeOfGroupStack::Int16
-    SizeOfBeginPopupStack::Int16
+    SizeOfIDStack::Cshort
+    SizeOfColorStack::Cshort
+    SizeOfStyleVarStack::Cshort
+    SizeOfFontStack::Cshort
+    SizeOfFocusScopeStack::Cshort
+    SizeOfGroupStack::Cshort
+    SizeOfBeginPopupStack::Cshort
 end
 
 struct ImGuiWindowTempData
@@ -484,8 +489,8 @@ struct ImGuiWindowTempData
 end
 
 struct ImVec2ih
-    x::Int16
-    y::Int16
+    x::Cshort
+    y::Cshort
 end
 
 struct ImVector_ImGuiOldColumns
@@ -506,7 +511,7 @@ end
 end
 
 
-const ImS16 = Int16
+const ImS16 = Cshort
 
 struct ImGuiTabItem
     ID::ImGuiID
@@ -665,10 +670,10 @@ struct ImGuiWindow
     Hidden::Bool
     IsFallbackWindow::Bool
     HasCloseButton::Bool
-    ResizeBorderHeld::UInt8
-    BeginCount::Int16
-    BeginOrderWithinParent::Int16
-    BeginOrderWithinContext::Int16
+    ResizeBorderHeld::Int8
+    BeginCount::Cshort
+    BeginOrderWithinParent::Cshort
+    BeginOrderWithinContext::Cshort
     PopupId::ImGuiID
     AutoFitFramesX::ImS8
     AutoFitFramesY::ImS8
@@ -720,7 +725,7 @@ struct ImGuiWindow
     DockIsActive::Bool
     DockTabIsVisible::Bool
     DockTabWantClose::Bool
-    DockOrder::Int16
+    DockOrder::Cshort
     DockStyle::ImGuiWindowDockStyle
     DockNode::Ptr{ImGuiDockNode}
     DockNodeAsHost::Ptr{ImGuiDockNode}
@@ -748,7 +753,7 @@ struct ImGuiViewportP
     LastPos::ImVec2
     Alpha::Cfloat
     LastAlpha::Cfloat
-    PlatformMonitor::Int16
+    PlatformMonitor::Cshort
     PlatformWindowCreated::Bool
     Window::Ptr{ImGuiWindow}
     DrawListsLastFrame::NTuple{2,Cint}
@@ -797,8 +802,8 @@ end
 struct StbUndoState
     undo_rec::NTuple{99,StbUndoRecord}
     undo_char::NTuple{999,ImWchar}
-    undo_point::Int16
-    redo_point::Int16
+    undo_point::Cshort
+    redo_point::Cshort
     undo_char_point::Cint
     redo_char_point::Cint
 end
@@ -828,7 +833,7 @@ struct ImGuiWindowSettings
     ViewportId::ImGuiID
     DockId::ImGuiID
     ClassId::ImGuiID
-    DockOrder::Int16
+    DockOrder::Cshort
     Collapsed::Bool
     WantApply::Bool
 end
@@ -1250,7 +1255,7 @@ struct ImVector_ImGuiTextRange
 end
 
 struct ImGuiTextFilter
-    InputBuf::NTuple{256,UInt8}
+    InputBuf::NTuple{256,Cchar}
     Filters::ImVector_ImGuiTextRange
     CountGrep::Cint
 end
@@ -1360,7 +1365,7 @@ struct ImGuiPayload
     SourceId::ImGuiID
     SourceParentId::ImGuiID
     DataFrameCount::Cint
-    DataType::NTuple{33,UInt8}
+    DataType::NTuple{33,Cchar}
     Preview::Bool
     Delivery::Bool
 end
@@ -1825,7 +1830,7 @@ struct ImGuiContext
     PlatformImePos::ImVec2
     PlatformImeLastPos::ImVec2
     PlatformImePosViewport::Ptr{ImGuiViewportP}
-    PlatformLocaleDecimalPoint::UInt8
+    PlatformLocaleDecimalPoint::Cchar
     DockContext::ImGuiDockContext
     SettingsLoaded::Bool
     SettingsDirtyTimer::Cfloat
@@ -1855,7 +1860,7 @@ struct ImGuiContext
     WantCaptureMouseNextFrame::Cint
     WantCaptureKeyboardNextFrame::Cint
     WantTextInputNextFrame::Cint
-    TempBuffer::NTuple{3073,UInt8}
+    TempBuffer::NTuple{3073,Cchar}
 end
 
 struct ImColor
@@ -1879,8 +1884,8 @@ const ImGuiPopupFlags = Cint
 const ImGuiSelectableFlags = Cint
 const ImGuiSliderFlags = Cint
 const ImGuiTreeNodeFlags = Cint
-const ImWchar32 = UInt32
-const ImU16 = UInt16
+const ImWchar32 = Cuint
+const ImU16 = Cushort
 const ImS32 = Cint
 const ImS64 = Int64
 const ImGuiNavHighlightFlags = Cint
